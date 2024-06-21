@@ -1,5 +1,17 @@
 .layout {
-    min-height: 100px;
-    min-width:100%;
+    /* min-height: 100vh; */
+    min-width: 99vw;
     background:  #131316;
+}
+
+.mt12 {
+    margin-top: 120px;
+}
+
+.center {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 322px;
+    margin-right: 304px;
 }
