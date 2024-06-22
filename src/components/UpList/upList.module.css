@@ -2,5 +2,10 @@
     position: fixed;
     top: 235px;
     left: 990px;
+}
 
+.column {
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px 
 }

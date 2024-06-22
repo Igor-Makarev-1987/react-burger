@@ -1,9 +1,9 @@
 import downListStyle from './downList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function DownList() {
+function GetDownList() {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={downListStyle.header}>
+        <div className={`${downListStyle.header} ${downListStyle.column}`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
@@ -16,4 +16,4 @@ function DownList() {
 }
 
 
-export default DownList
+export default GetDownList

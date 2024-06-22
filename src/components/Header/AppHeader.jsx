@@ -5,7 +5,7 @@ import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function AppHeader() {
+function CreateAppHeader() {
     return (
         <div className={headerStyles.layout}>
             <div className={headerStyles.container}>
@@ -26,4 +26,4 @@ function AppHeader() {
     )
 }
 
-export default AppHeader;
+export default CreateAppHeader;

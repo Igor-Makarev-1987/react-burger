@@ -5,7 +5,7 @@ import Ingridients from '../Ingridients/Ingridients';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 
-function BurgerIngredients({data, isLoading, hasError}) {
+function CreateBurgerIngredients({data, isLoading, hasError}) {
     // const [state, setState] = useState({
     //     isLoading: false,
     //     hasError: false,
@@ -47,35 +47,35 @@ function BurgerIngredients({data, isLoading, hasError}) {
                     {isLoading && 'Загрузка...'}
                     {hasError && 'Произошла ошибка'}
                     {data.success &&   
-                    someBuns.map((component, index ) => <Ingridients key={index} data={component}/>)}
+                    someBuns.map((component, index ) => <Ingridients key={component._id} data={component}/>)}
                 </div>
                 <div className={burgerIngredientsStyle.titleText}>Соусы</div>
                 <div className={burgerIngredientsStyle.row}>
                     {isLoading && 'Загрузка...'}
                     {hasError && 'Произошла ошибка'}
                     {data.success &&   
-                    someSauces.map((component, index ) => <Ingridients key={index} data={component} />)}
+                    someSauces.map((component, index ) => <Ingridients key={component._id} data={component} />)}
                 </div>
                 <div className={burgerIngredientsStyle.titleText}>Начинки</div>
                 <div className={burgerIngredientsStyle.row}>
                     {isLoading && 'Загрузка...'}
                     {hasError && 'Произошла ошибка'}
                     {data.success &&   
-                    someMains.map((component, index ) => <Ingridients key={index} data={component} />)}
+                    someMains.map((component, index ) => <Ingridients key={component._id} data={component} />)}
                 </div>
             </div>)}
         </div>
     )
 }
 
-BurgerIngredients.propTypes = {
+CreateBurgerIngredients.propTypes = {
     data: PropTypes.shape({
         success: PropTypes.bool,
-        data: ingridientPropTypes.isRequired
+        data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
     }),
 
     isLoading: PropTypes.bool.isRequired,
     hasError: PropTypes.bool.isRequired
 }
 
-export default BurgerIngredients
+export default CreateBurgerIngredients

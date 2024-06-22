@@ -5,15 +5,16 @@ import DownList from '../DownList/DownList';
 import Order from '../Order/Order';
 import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
+import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 
-function BurgerConstructor({data, isLoading, hasError}) {
+function createBurgerConstructor({data, isLoading, hasError}) {
     const unbun = data.success && data.data.filter( (el) => el.type != 'bun')
     return (
         <div className={burgerConstructorStyle.container}>
             <UpList></UpList>
             <>
                 <div className={listStyle.container} >
-                    <div className={listStyle.scroll} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <div className={`${listStyle.scroll} ${burgerConstructorStyle.column}`}>
                         {data.success && unbun.map( (component, index) => <List data={component} key={index}></List>)}
                     </div>
                 </div>
@@ -25,11 +26,14 @@ function BurgerConstructor({data, isLoading, hasError}) {
 }
 
 // провверка на типизацию
-BurgerConstructor.propTypes = {
-    data: PropTypes.object.isRequired,
+createBurgerConstructor.propTypes = {
+    data: PropTypes.shape({
+        success: PropTypes.bool,
+        data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
+    }),
     isLoading: PropTypes.bool.isRequired,
     hasError: PropTypes.bool.isRequired
 }
 
 
-export default BurgerConstructor
+export default createBurgerConstructor

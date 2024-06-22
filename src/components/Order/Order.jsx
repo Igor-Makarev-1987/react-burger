@@ -8,7 +8,8 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../Modal/ModalOverlay';
 
-const Order = () => {
+
+const CreateOrder = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openModal = () => {
@@ -34,7 +35,7 @@ const Order = () => {
 
                 {isOpen && <Modal isOpen={isOpen} onClose={closeModal}>
                     <>
-                        <div className={modalStyle.container} style={{height:'580px'}}>
+                        <div className={`${modalStyle.container} ${orderStyle.heightBlock}`}>
                             <div className="modal-wrapper">
                                 <div className="modal">
                                     <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`}>
@@ -63,4 +64,4 @@ const Order = () => {
     )
 }
 
-export default Order
+export default CreateOrder

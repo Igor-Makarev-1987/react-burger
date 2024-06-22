@@ -23,3 +23,8 @@
 .constructorElement {
     min-width: 536px;
 }
+
+.paramsWidth {
+    min-width:570px; 
+    max-width: 571px;
+}

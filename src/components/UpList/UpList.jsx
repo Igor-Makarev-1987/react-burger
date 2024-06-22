@@ -1,9 +1,9 @@
 import upListStyle from './upList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function UpList() {
+function CreateUpList() {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} className={upListStyle.header}>
+        <div className={`${upListStyle.header} ${upListStyle.column} `}>
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -16,4 +16,4 @@ function UpList() {
 }
 
 
-export default UpList
+export default CreateUpList

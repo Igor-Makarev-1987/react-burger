@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modals');
 
-const Modal = ({children, isOpen, onClose}) => {
+const CreateModal = ({children, isOpen, onClose}) => {
     const onKey = (e) => {
         if(e.keyCode == 27) {
             onClose()
@@ -33,10 +33,10 @@ const Modal = ({children, isOpen, onClose}) => {
     );
   };
 
-  Modal.propTypes = {
+  CreateModal.propTypes = {
     children: PropTypes.object.isRequired,
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func
   }
   
-  export default Modal;
+  export default CreateModal;

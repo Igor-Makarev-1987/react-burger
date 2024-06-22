@@ -7,7 +7,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../Modal/ModalOverlay';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 
-const Ingridients = ({data}) => {
+const GetIngridients = ({data}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openModal = () => {
@@ -71,8 +71,8 @@ const Ingridients = ({data}) => {
     )
   }
 
-  Ingridients.propTypes = {
+  GetIngridients.propTypes = {
     data: ingridientPropTypes.isRequired
 }
 
-  export default Ingridients;
+  export default GetIngridients;

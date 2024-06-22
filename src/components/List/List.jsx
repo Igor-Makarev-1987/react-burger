@@ -3,11 +3,11 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 
-const List = ({data}) => {
+const GetList = ({data}) => {
     return (
  
         <div className={`${listStyle.row} ${listStyle.constructorElement}`}>
-            <span style={{minWidth:'570px', maxWidth: '571px'}}>
+            <span className={listStyle.paramsWidth} >
                 <DragIcon></DragIcon>
                 <ConstructorElement
                     text={data.name}
@@ -19,8 +19,8 @@ const List = ({data}) => {
     )
 }
 
-List.propTypes = {
+GetList.propTypes = {
     data: ingridientPropTypes.isRequired
   }
 
-export default List; 
+export default GetList; 

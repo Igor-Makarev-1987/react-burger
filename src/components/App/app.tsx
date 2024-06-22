@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import AppHeader from './components/Header/AppHeader';
-import appStyles from '../src/components/App/app.module.css';
-import AppBurgerIngredients from '../src/components/BurgerIngredients/AppBurgerIngredients'
-import AppBurgerConstructor from '../src/components/BurgerConstructor/AppBurgerConstructor';
+import AppHeader from '../Header/AppHeader';
+import appStyles from './app.module.css';
+import AppBurgerIngredients from '../BurgerIngredients/AppBurgerIngredients'
+import AppBurgerConstructor from '../BurgerConstructor/AppBurgerConstructor';
 
 function App() {
   const [state, setState] = useState({
@@ -11,9 +11,15 @@ function App() {
     data: {}
   });
 
-    const components = () => {
+    const getComponents = () => {
       fetch('https://norma.nomoreparties.space/api/ingredients')
-      .then(res => res.json())
+      .then(res => {
+        if(res.ok) {
+          return res.json()
+        }
+
+        return Promise.reject(`Ошибка ${res.status}`);
+      })
       .then(data => { 
           if(data.success) {
               setState({ ...state, data, isLoading: false })
@@ -25,7 +31,7 @@ function App() {
   }
 
   useEffect( () => {
-      components()
+      getComponents()
   }, [])
 
   const { data, isLoading, hasError } = state
