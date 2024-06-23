@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import burgerIngredientsStyle from './burgerIngredients.module.css';
 import Menu from '../BurgerIngridientMenu/BurgerIngridientMenu';
-import Ingridients from '../Ingridients/IngredientDetails';
+import Ingridients from '../Ingridients/Ingredient';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 

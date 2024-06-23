@@ -2,7 +2,7 @@ import burgerConstructorStyle from './burgerConstructor.module.css';
 import UpList from '../UpList/UpList';
 import List from '../List/List';
 import DownList from '../DownList/DownList';
-import Order from '../Order/OrderDetails';
+import Order from '../Order/Details';
 import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';

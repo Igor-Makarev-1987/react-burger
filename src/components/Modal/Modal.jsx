@@ -34,7 +34,7 @@ const CreateModal = ({children, isOpen, onClose}) => {
                     </div>
                 </div>
             </div>
-            {/* <ModalOverlay onClick={() =>onClose()}></ModalOverlay> */}
+            <ModalOverlay onClick={() =>onClose()}></ModalOverlay>
         </>,
         modalRoot
     );
