@@ -6,6 +6,7 @@ import modalStyle from '../Modal/modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../Modal/ModalOverlay';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
+import CurrentIngridient from './CurrentIngridient';
 
 const GetIngridients = ({data}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,11 +30,12 @@ const GetIngridients = ({data}) => {
                 <div className={ingridientsStyle.price}>{data.price} <span className={ingridientsStyle.icon}><CurrencyIcon type="primary" /></span></div> 
                 <div className={ingridientsStyle.price}>{data.name}</div> 
                 {isOpen && <Modal isOpen={isOpen} onClose={closeModal}>
-                    <>
-                        <div className={modalStyle.container}>
-                            <div className="modal-wrapper">
-                                <div className="modal">
-                                    <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`}>
+                    {/* <> */}
+                        {/* <div className={modalStyle.container}>
+                            <div className="modal-wrapper"> */}
+                                {/* <div className="modal"> */}
+                                    <CurrentIngridient data={data} onClose={closeModal}></CurrentIngridient>
+                                    {/* <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`}>
                                         Детали ингридиента 
                                         <span className={modalStyle.closeButton} onClick={closeModal}><CloseIcon type="primary" /></span>
                                         </div>
@@ -58,12 +60,12 @@ const GetIngridients = ({data}) => {
                                                 <div className={modalStyle.fontPermentsNumber}>{data.proteins}</div>
                                             </span>
                                         </div>
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                        <ModalOverlay onClose={closeModal}></ModalOverlay>
-                    </>
+                                    </div>  */}
+                                {/* </div> */}
+                            {/* </div>
+                        </div> */}
+                        {/* <ModalOverlay onClose={closeModal}></ModalOverlay> */}
+                    {/* </> */}
                 </Modal>}         
             </div>
         </div>
@@ -71,7 +73,7 @@ const GetIngridients = ({data}) => {
     )
   }
 
-  GetIngridients.propTypes = {
+GetIngridients.propTypes = {
     data: ingridientPropTypes.isRequired
 }
 
