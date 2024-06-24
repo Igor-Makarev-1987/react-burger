@@ -2,7 +2,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import burgerIngredientsMenu from './burgerIngridientMenu.module.css';
 
-const CreateMenu = () => {
+const Menu = () => {
     const [current, setCurrent] = useState('Булки')
     return (
         <div className={burgerIngredientsMenu.container}>
@@ -19,4 +19,4 @@ const CreateMenu = () => {
     )
   }
 
-  export default CreateMenu;
+  export default Menu;

@@ -1,12 +1,12 @@
 import ReactDOM from 'react-dom'
-import ModalOverlay from './ModalOverlay';
+import ModalOverlay from './modalOverlay';
 import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import modalStyle from '../Modal/modal.module.css';
 
 const modalRoot = document.querySelector('#modals');
 
-const CreateModal = ({children, isOpen, onClose}) => {
+const Modal = ({children, isOpen, onClose}) => {
     const onKey = (e) => {
         if(e.keyCode == 27) {
             onClose()
@@ -34,16 +34,16 @@ const CreateModal = ({children, isOpen, onClose}) => {
                     </div>
                 </div>
             </div>
-            <ModalOverlay onClick={() =>onClose()}></ModalOverlay>
+            <ModalOverlay onClose={onClose}></ModalOverlay>
         </>,
         modalRoot
     );
   };
 
-  CreateModal.propTypes = {
-    children: PropTypes.object.isRequired,
+  Modal.propTypes = {
+    children: PropTypes.node, 
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func
   }
   
-  export default CreateModal;
+  export default Modal;

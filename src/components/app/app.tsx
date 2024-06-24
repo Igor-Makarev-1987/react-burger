@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import AppHeader from '../Header/AppHeader';
+import AppHeader from '../Header/appHeader';
 import appStyles from './app.module.css';
-import AppBurgerIngredients from '../BurgerIngredients/AppBurgerIngredients'
-import AppBurgerConstructor from '../BurgerConstructor/AppBurgerConstructor';
+import AppBurgerIngredients from '../BurgerIngredients/appBurgerIngredients'
+import AppBurgerConstructor from '../BurgerConstructor/appBurgerConstructor';
 
 function App() {
   const [state, setState] = useState({

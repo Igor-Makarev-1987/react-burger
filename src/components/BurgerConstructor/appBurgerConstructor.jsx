@@ -1,13 +1,13 @@
 import burgerConstructorStyle from './burgerConstructor.module.css';
-import UpList from '../UpList/UpList';
-import List from '../List/List';
-import DownList from '../DownList/DownList';
-import Order from '../Order/Details';
+import UpList from '../UpList/upList';
+import List from '../List/list';
+import DownList from '../DownList/downList';
+import Order from '../Order/details';
 import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 
-function createBurgerConstructor({data, isLoading, hasError}) {
+function BurgerConstructor({data, isLoading, hasError}) {
     const unbun = data.success && data.data.filter( (el) => el.type != 'bun')
     return (
         <div className={burgerConstructorStyle.container}>
@@ -26,7 +26,7 @@ function createBurgerConstructor({data, isLoading, hasError}) {
 }
 
 // провверка на типизацию
-createBurgerConstructor.propTypes = {
+BurgerConstructor.propTypes = {
     data: PropTypes.shape({
         success: PropTypes.bool,
         data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
@@ -36,4 +36,4 @@ createBurgerConstructor.propTypes = {
 }
 
 
-export default createBurgerConstructor
+export default BurgerConstructor

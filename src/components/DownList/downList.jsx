@@ -1,7 +1,7 @@
 import downListStyle from './downList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function GetDownList() {
+function DownList() {
     return (
         <div className={`${downListStyle.header} ${downListStyle.column}`}>
           <ConstructorElement
@@ -16,4 +16,4 @@ function GetDownList() {
 }
 
 
-export default GetDownList
+export default DownList

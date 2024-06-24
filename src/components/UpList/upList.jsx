@@ -1,7 +1,7 @@
 import upListStyle from './upList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function CreateUpList() {
+function UpList() {
     return (
         <div className={`${upListStyle.header} ${upListStyle.column} `}>
           <ConstructorElement
@@ -16,4 +16,4 @@ function CreateUpList() {
 }
 
 
-export default CreateUpList
+export default UpList
