@@ -6,33 +6,64 @@ import Order from '../Order/details';
 import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
+import { useDispatch, useSelector } from 'react-redux';
+import {ADD_INGRIDIENT} from '../../services/actions/ingridientsAction';
+import {addIngridient} from '../../services/slices/constructorIngridientsSlice';
+import {useDrop} from 'react-dnd';
 
-function BurgerConstructor({data, isLoading, hasError}) {
-    const unbun = data.success && data.data.filter( (el) => el.type != 'bun')
+
+function BurgerConstructor() {
+    // const {data, isLoading, error} = useSelector( (state) => (state.ingridients.constructorIngridient
+    //  убрано по причине warning
+    //     {
+    //     data: state.ingridients.constructorIngridient,
+    //     isLoading: state.ingridients.isLoading,
+    //     error: state.ingridients.error
+    // }
+    // ));
+    const {constructorIngridient, isLoading, error} = useSelector( (state) => state.constructorIngridients);
+    const isIngredientDragged = useSelector( (state) => state.constructorIngridients.isIngredientDragged);
+    const dispatch = useDispatch();
+
+    const [, dropRef] = useDrop({
+        accept: 'ingridient',
+        drop(item) {
+          dispatch(addIngridient(item))
+        } 
+    })
+
+    const outline = isIngredientDragged ? "1px dashed lightgreen" : "transparent";
+    // перенос в constructorIngridient
+    // const constructorIngridient = useSelector( state => state.ingridients.constructorIngridient)
+
     return (
-        <div className={burgerConstructorStyle.container}>
-            <UpList></UpList>
+        <div className={burgerConstructorStyle.container} ref={dropRef}>
             <>
-                <div className={listStyle.container} >
-                    <div className={`${listStyle.scroll} ${burgerConstructorStyle.column}`}>
-                        {data.success && unbun.map( (component, index) => <List data={component} key={index}></List>)}
+                <UpList></UpList>
+                <>
+                    <div className={listStyle.container} >
+                        <div className={`${listStyle.scroll} ${burgerConstructorStyle.column}`} style={{outline}}>
+                            {!isLoading && constructorIngridient.ingridients && constructorIngridient.ingridients.map( 
+                                (component, index) => <List data={component} key={index} orderIndex={index}></List>
+                            )}
+                        </div>
                     </div>
-                </div>
+                </>
+                <DownList></DownList>
+                <Order></Order>
             </>
-            <DownList></DownList>
-            <Order></Order>
         </div>
     )
 }
 
-// провверка на типизацию
+// проверка на типизацию
 BurgerConstructor.propTypes = {
-    data: PropTypes.shape({
-        success: PropTypes.bool,
-        data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
-    }),
-    isLoading: PropTypes.bool.isRequired,
-    hasError: PropTypes.bool.isRequired
+    // data: PropTypes.shape({
+    //     success: PropTypes.bool,
+    //     data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
+    // }),
+    // isLoading: PropTypes.bool.isRequired,
+    // hasError: PropTypes.bool.isRequired
 }
 
 

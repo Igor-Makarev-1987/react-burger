@@ -1,9 +1,11 @@
 import modalStyle from '../Modal/modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const IngredientDetails = ({data, onClose}) => {
+const IngredientDetails = ({ onClose}) => {
+    const data = useSelector(state => state.viewedIngridient.currentIngridient)
+
     return (
         <>
             <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`}>
@@ -37,7 +39,7 @@ const IngredientDetails = ({data, onClose}) => {
 }
 
 IngredientDetails.propTypes = {
-    data: ingridientPropTypes.isRequired,
+    // data: ingridientPropTypes.isRequired,
     closeModal: PropTypes.func,
 }
 

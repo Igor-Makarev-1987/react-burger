@@ -3,6 +3,7 @@ import ModalOverlay from './modalOverlay';
 import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import modalStyle from '../Modal/modal.module.css';
+import { useSelector } from 'react-redux';
 
 const modalRoot = document.querySelector('#modals');
 
