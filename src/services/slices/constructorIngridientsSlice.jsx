@@ -16,6 +16,9 @@ const constructorIngridients = createSlice({
     initialState,
     reducers: {
         addIngridient: (state, action) => {
+            console.log(action.payload)
+            // console.log(state.constructorIngridient.ingridients)
+
             let newConstructorIngridients;
             if(action.payload.type === 'bun') {
                 if(state.constructorIngridient.length > 0) {
@@ -26,9 +29,14 @@ const constructorIngridients = createSlice({
 
                 state.constructorIngridient.bun = newConstructorIngridients         
             } else {
+                // state.constructorIngridient.ingridients = [
+                //     ...state.constructorIngridient.ingridients,
+                //     {...action.payload, id:uuid()}
+                // ]
+
                 state.constructorIngridient.ingridients = [
-                    ...state.constructorIngridient.ingridients,
-                    {...action.payload, id:uuid()}
+                    ...state.constructorIngridient.ingridients, action.payload
+                    // {...action.payload, id:uuid()}
                 ]
             }
 

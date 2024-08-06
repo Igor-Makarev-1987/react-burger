@@ -10,7 +10,6 @@ const IngredientDetails = ({ onClose}) => {
         <>
             <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`}>
                                         Детали ингридиента 
-                <span className={modalStyle.closeButton} onClick={onClose}><CloseIcon type="primary" /></span>
                 </div>
             <div className="body">
                 <img className={modalStyle.picture} src={data.image_mobile} alt={data.name}/>

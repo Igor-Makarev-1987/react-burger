@@ -1,11 +1,11 @@
 import React, {useState, useRef} from 'react';
 import burgerIngredientsStyle from './burgerIngredients.module.css';
-import Menu from '../BurgerIngridientMenu/burgerIngridientMenu';
-import Ingridients from '../Ingridients/ingredient';
+import Menu from '../BurgerIngridientMenu/BurgerIngridientMenu';
+import Ingridients from '../Ingridients/Ingredient';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
-import Modal from '../Modal/modal';
-import IngredientDetails from '../Ingridients/ingredientDetails';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../Ingridients/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { currentIngridient } from '../../services/slices/viewedIngridient';

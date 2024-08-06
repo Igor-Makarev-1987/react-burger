@@ -1,8 +1,8 @@
 import burgerConstructorStyle from './burgerConstructor.module.css';
-import UpList from '../UpList/upList';
-import List from '../List/list';
-import DownList from '../DownList/downList';
-import Order from '../Order/details';
+import UpList from '../UpList/UpList';
+import List from '../List/List';
+import DownList from '../DownList/DownList';
+import Order from '../Order/Details';
 import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {ADD_INGRIDIENT} from '../../services/actions/ingridientsAction';
 import {addIngridient} from '../../services/slices/constructorIngridientsSlice';
 import {useDrop} from 'react-dnd';
+import { v4 as uuid } from 'uuid';
 
 
 function BurgerConstructor() {
@@ -28,7 +29,7 @@ function BurgerConstructor() {
     const [, dropRef] = useDrop({
         accept: 'ingridient',
         drop(item) {
-          dispatch(addIngridient(item))
+          dispatch(addIngridient({...item, id:uuid()}))
         } 
     })
 
@@ -44,7 +45,7 @@ function BurgerConstructor() {
                     <div className={listStyle.container} >
                         <div className={`${listStyle.scroll} ${burgerConstructorStyle.column}`} style={{outline}}>
                             {!isLoading && constructorIngridient.ingridients && constructorIngridient.ingridients.map( 
-                                (component, index) => <List data={component} key={index} orderIndex={index}></List>
+                                (component, index) => <List data={component} key={component.id} orderIndex={index}></List>
                             )}
                         </div>
                     </div>

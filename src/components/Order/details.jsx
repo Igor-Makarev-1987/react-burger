@@ -2,12 +2,12 @@ import orderStyle from './order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {useMemo, useState} from 'react';
-import Modal from '../Modal/modal';
+import Modal from '../Modal/Modal';
 import modalStyle from '../Modal/modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ModalOverlay from '../Modal/modalOverlay';
-import OrderDetails from './orderDetails';
+import ModalOverlay from '../Modal/ModalOverlay';
+import OrderDetails from './OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { postOrder } from '../../services/actions/orderAction';
 
