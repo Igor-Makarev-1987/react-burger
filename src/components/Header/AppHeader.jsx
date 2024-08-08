@@ -7,7 +7,7 @@ import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function AppHeader() {
     return (
-        <div className={headerStyles.layout}>
+        <header className={headerStyles.layout}>
             <div className={headerStyles.container}>
                 <div className={headerStyles.row}>
                     <span className={headerStyles.vertical}>
@@ -22,7 +22,7 @@ function AppHeader() {
                     </span>
                 </div>
             </div>
-        </div>
+        </header>
     )
 }
 

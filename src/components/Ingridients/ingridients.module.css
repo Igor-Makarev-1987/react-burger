@@ -39,3 +39,22 @@
 .product {
     width: 40%;
 }
+
+.count {
+    /* background-color: #4C4CFF;
+    height: 32px;
+    width: 32px;
+    border-radius: 16px; */
+    display: flex!;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.positionCount {
+    position: relative;
+    width: 16rem;
+    top:0.5rem;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}

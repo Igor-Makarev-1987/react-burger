@@ -38,8 +38,9 @@
 .closeButton {
     width: 24px;
     height: 24px;
-    padding-top: 9px;
-    padding-left: 33%;
+    position: absolute;
+    margin-top: 45px;
+    padding-left: 90%;
     cursor: pointer;
 }
 

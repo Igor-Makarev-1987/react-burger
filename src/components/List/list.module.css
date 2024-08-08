@@ -28,3 +28,7 @@
     min-width:570px; 
     max-width: 571px;
 }
+
+.cursor {
+    cursor: pointer;
+}
