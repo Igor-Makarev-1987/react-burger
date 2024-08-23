@@ -9,6 +9,7 @@ import IngredientDetails from '../Ingridients/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { currentIngridient } from '../../services/slices/viewedIngridient';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState("buns");
@@ -123,11 +124,13 @@ function BurgerIngredients() {
                         </div>
                     </section>)}
             </div>
-            {isModal && <Modal isOpen={isModal} onClose={closeModal}>
-                <>                       
-                    <IngredientDetails onClose={closeModal}></IngredientDetails>
-                </>
-            </Modal>} 
+            {/* {isModal && 
+                <Modal isOpen={isModal} onClose={closeModal}>
+                    <>                       
+                        <IngredientDetails onClose={closeModal}></IngredientDetails>
+                    </>
+                </Modal>
+            }  */}
         </>
     )
 }

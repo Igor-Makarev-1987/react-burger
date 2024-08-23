@@ -1,30 +1,66 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from '../Header/AppHeader';
-import appStyles from './app.module.css';
-import AppBurgerIngredients from '../BurgerIngredients/AppBurgerIngredients'
-import AppBurgerConstructor from '../BurgerConstructor/AppBurgerConstructor';
-import { useDispatch } from 'react-redux';
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-import { loadAllIngredients } from '../../services/actions/ingridientAction';
+import { useDispatch, useSelector } from 'react-redux';
+import {BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import HomePage from "../../pages/home/home";
+import LoginPage from '../../pages/login/login';
+import ProfilePage from '../../pages/profile/profile';
+import RegistraionPage from '../../pages/registration/registration';
+import ResetPasswordPage from '../../pages/resetPassword/resetPassword';
+import { ForgotPasswordPage } from '../../pages/forgotPassword/forgotPassword';
+import NotFound404  from "../../pages/notFound/notFound404";
+// import { ProtectedRouteElement } from '../ProtectedRouteElement/ProtectedRouteElement';
+import { currentIngridient } from '../../services/slices/viewedIngridient';
+import Modal from '../Modal/Modal';
+import IngredientDetails from '../Ingridients/IngredientDetails';
+import { OnlyAuth, OnlyUnAuth } from "../ProtectedRouteElement/ProtectedRouteElement";
+// import { checkUserAuth } from '../../services/actions/loginAction';
+import { checkUserAuth } from '../../services/actions/formAction';
 
 function App() {
   const dispatch = useDispatch();
+  const [isModal, setIsModal] = useState(true);
+  const navigate = useNavigate()
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  console.log(background)
+  const closeModal = () => {
+      setIsModal(false)
+      navigate(-1)
+  }
 
-  useEffect( () => {
-    dispatch( loadAllIngredients() )
-  }, [dispatch])
-
+  useEffect ( () => {
+    dispatch(checkUserAuth())
+  }, [])
   return (
-    <div className={appStyles.layout}>
-      <AppHeader></AppHeader>
-      <main className={`${appStyles.mt12} ${appStyles.center}`}>
-        <DndProvider backend={HTML5Backend}>
-          <AppBurgerIngredients />
-          <AppBurgerConstructor />
-        </DndProvider>  
-      </main>
-    </div>
+    <>
+          <AppHeader />
+          <Routes location={background || location}>
+            <Route path='/' element={<HomePage />}></Route>
+            <Route path="/login"  element={<OnlyUnAuth component={<LoginPage />} />} />
+            <Route path="/profile" element={<OnlyAuth component={<ProfilePage activeTab="PROFILE" />}/>} />
+            <Route path="/register" element={<OnlyUnAuth component={<RegistraionPage />}/>} />
+            <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />}/>} />
+            <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPasswordPage />}/>} />
+            <Route path='/*' element={<NotFound404 />}></Route>
+            <Route path="/ingredients/:id" element={<IngredientDetails/>}></Route>
+          </Routes>
+        {/* </Router> */}
+
+          {background && (
+            <Routes>
+              <Route path="/ingredients/:id" element={
+                <Modal isOpen={isModal} onClose={closeModal}>
+                    <>                       
+                        <IngredientDetails></IngredientDetails>
+                    </>
+                </Modal>
+              }></Route>
+            </Routes>
+          )}
+
+
+    </>
   );
 }
 

@@ -58,3 +58,15 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
 }
+
+.link {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+  }
+
+.link:hover {
+    text-decoration: underline;
+    color: blueviolet;
+    font-size: 14px;
+  }
