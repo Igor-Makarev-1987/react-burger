@@ -2,7 +2,7 @@ import {
     Input,
     Button,
   } from "@ya.praktikum/react-developer-burger-ui-components";
-  import React, { SyntheticEvent, useEffect, useState } from "react";
+  import React, { useEffect, useState } from "react";
   import forgotPasswordStyle from "./forgotPassword.module.css";
   import { Link, useHistory, useLocation, useNavigate } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";

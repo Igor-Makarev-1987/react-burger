@@ -13,10 +13,8 @@ function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isPasswordShown, setIsPasswordShown] = useState(false);
-    const user = useSelector((state) => state.user.user);
-    const userIsLoggedIn = useSelector( (state) => state.auth.userIsLoggedIn);
-    // console.log(user);
-    // console.log(userIsLoggedIn);
+    // const user = useSelector((state) => state.user.user);
+    // const userIsLoggedIn = useSelector( (state) => state.auth.userIsLoggedIn);
    
     const handleSubmit = (e) => {
         e.preventDefault();

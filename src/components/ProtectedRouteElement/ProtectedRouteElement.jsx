@@ -21,7 +21,6 @@ const ProtectedRoute = ({ onlyUnAuth = false, component }) => {
   // console.log(onlyUnAuth )
   // console.log(user)
   if (onlyUnAuth && user) {
-    console.log(333)
     // Пользователь авторизован, но роут предназначен для неавторизованного пользователя
     // Делаем редирект на главную страницу или на тот адрес, что записан в location.state.from
     const { from } = location.state || { from: { pathname: "/" } };

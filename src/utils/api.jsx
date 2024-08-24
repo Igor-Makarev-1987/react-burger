@@ -23,7 +23,7 @@ export const submitOrder = async (ingredientIds) => {
     }).then(checkResponse).then(res => res)
 }
 
-export const forgotPass = ({email}) => {
+export const forgotPass = (email) => {
   return fetch(`${API_BASE}/password-reset`, {
     method: "POST",
     body: JSON.stringify({
@@ -59,73 +59,10 @@ export const register = async ({email, name, password}) => {
     })
 }
 
-// export const register = async ({ email, password, name }) => {
-//   return fetch(`${API_BASE}/auth/register`, {
-//     method: "POST",
-//     body: JSON.stringify({
-//       email: email,
-//       name: name,
-//       password: password
-//     }),
-//     headers: {
-//             "Content-Type": "application/json",
-//           }
-//   })
-//     .catch(() => Promise.reject("Ошибка регистрации"))
-//     .then(({ success, ...data }) => data);
-// }
 
-// export const fetchWithRefresh = async (url, options) => {
-//   try {
-//     const res = await fetch(url, options);
-//     return await checkResponse(res);
-//   } catch (err) {
-//     if (err.message === "jwt expired") {
-//       const refreshData = await refreshAccessTokenUser(); //обновляем токен
-//       options.headers.authorization = refreshData.accessToken;
-//       const res = await fetch(url, options); //повторяем запрос
-//       return await checkResponse(res);
-//     } else {
-//       return Promise.reject(err);
-//     }
-//   }
-// };
 
-// export const refreshToken = () => {
-//   return fetch(`${API_BASE}/auth/token`, {
-//       method: "POST",
-//       headers: {
-//           "Content-Type": "application/json;charset=utf-8",
-//       },
-//       body: JSON.stringify({
-//           token: localStorage.getItem("refreshToken"),
-//       }),
-//   }).then(res => checkResponse(res));
-// };
-
-// export const fetchWithRefresh = async (url, options) => {
-//   try {
-//       const res = await fetch(url, options);
-//       return await checkResponse(res);
-//   } catch (err) {
-//       if (err.message === "jwt expired") {
-//           const refreshData = await refreshToken(); //обновляем токен
-//           if (!refreshData.success) {
-//               return Promise.reject(refreshData);
-//           }
-//           localStorage.setItem("refreshToken", refreshData.refreshToken);
-//           localStorage.setItem("accessToken", refreshData.accessToken);
-//           options.headers.Authorization = refreshData.accessToken;
-//           const res = await fetch(url, options); //повторяем запрос
-//           return await checkResponse(res);
-//       } else {
-//           return Promise.reject(err);
-//       }
-//   }
-// };
 
 // получение данных пользователя
-// убрать за ненадобностью
 export const getUserData = async () => {
   return fetchWithRefresh(`${API_BASE}/auth/user`, {
     method: "GET",
@@ -167,8 +104,7 @@ export const login = async({ email, password }) => {
 
 // получение данных пользователя не работает fetchWithRefresh
 export const getUser = async () => {
-  // return async function () {
-      return await fetch(`${API_BASE}/auth/user`, {
+      return await fetchWithRefresh(`${API_BASE}/auth/user`, {
           method: "GET",
           mode: "cors",
           cache: "no-cache",
@@ -178,10 +114,8 @@ export const getUser = async () => {
               Authorization: localStorage.getItem("accessToken"),
           },
       }).then(checkResponse).then( res => {
-        // console.log(res)
         return res;
       });
-  // };
 };
 
 // обновление пользовательских данных
@@ -223,36 +157,19 @@ export const logout = () => {
   })
 }
 
-export const resetPass = ({form}) => {
+export const resetPass = ({password, token}) => {
   return fetch(`${API_BASE}/password-reset/reset`, {
     method: "POST",
     body: JSON.stringify({
-      form
+      password: password,
+      token: token
     }),
     headers: {
       "Content-Type": "application/json",
     }
   })
-    .then(checkResponse).then(res => res)
+    .then(checkResponse).then(res => {
+      console.log(res)
+      return res
+    })
 }
-
-// export const passwordUpdate = (url, form) => {
-//   return function (dispatch) {
-//       fetch(url, {
-//           method: "POST",
-//           headers: {
-//               "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify(form),
-//       })
-//           .then(checkResponse)
-//           .then(() => {
-//               dispatch({
-//                   type: UPDATE_FORM_SUCCESS,
-//               });
-//           })
-//           .catch(() => {
-//               dispatch({ type: UPDATE_FORM_FAILED });
-//           });
-//   };
-// };

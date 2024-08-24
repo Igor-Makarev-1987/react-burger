@@ -7,7 +7,7 @@ import {
   import { Link, useHistory, useNavigate } from "react-router-dom";
 
   import { useDispatch, useSelector } from "react-redux";
-  import { resetPassword } from "../../services/actions/resetPassAction";
+  import { resetPassword } from "../../services/actions/formAction";
 
   
   function ResetPasswordPage() {
@@ -22,7 +22,10 @@ import {
     };
   
     const handleSumbit = async (e) => {
+      // console.log(formValues)
       e.preventDefault();
+      let password = formValues.password
+      let token = formValues.token
       dispatch(resetPassword({password, token}))
       navigate("/", { replace: true});
     };

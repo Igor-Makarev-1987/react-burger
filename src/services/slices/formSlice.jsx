@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, getUserParam, setUserData, logoutUser, resetPassword } from "../actions/formAction";
+import { userLogin, getUserParam, setUserData, logoutUser, resetPassword, forgotPassword } from "../actions/formAction";
 
 const initialState = {
     resetFormFailed: false,
@@ -84,6 +84,19 @@ const formSlice = createSlice({
             })
             .addCase(resetPassword.rejected, (state) => {
                 state.updateFormFailed = false
+            })
+            .addCase(forgotPassword.fulfilled, (state) => {
+                state.updateFormFailed = false;
+                state.updateFormSuccess = true;
+            })
+            .addCase(forgotPassword.pending, (state) => {
+                state.updateFormFailed = false;
+                state.updateFormSuccess = false;
+            })
+            .addCase(forgotPassword.rejected, (state) => {
+                state.updateFormFailed = false;
+                state.updateFormSuccess = false;
+                state.error = "User password reset has failed, please contact support.";
             })
     }
 

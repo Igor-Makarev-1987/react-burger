@@ -6,7 +6,6 @@ import { ProfileInputs } from "../../components/ProfileInput/ProfileInput";
 import { logoutUser } from "../../services/actions/logoutUserAction";
 import profileStyle from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserDataReducer, setUserDataReducer } from "../../services/slices/userSlice";
 import { getUserParam } from "../../services/actions/formAction";
 import { setUserData } from "../../services/actions/formAction";
 
@@ -17,11 +16,8 @@ function ProfilePage({ activeTab }) {
     const [dataIsChanged, setDataIsChanged] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    //const user1 = useSelector((state) => state.user.user); //не нужно
     const user = useSelector( (state) => state.form.userInfo);
-    useEffect(() => {
-        // dispatch(getUserDataReducer());
-    }, [dispatch]);
+
 
     const setInitialState = useCallback(() => {
         if (user && user.name && user.email) {

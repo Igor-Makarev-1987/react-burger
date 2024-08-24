@@ -7,9 +7,7 @@ import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../Ingridients/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { currentIngridient } from '../../services/slices/viewedIngridient';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function BurgerIngredients() {
     const [current, setCurrent] = useState("buns");

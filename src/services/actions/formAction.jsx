@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { checkResponse } from "../../utils/checkResponse";
 import { fetchWithRefresh } from "../auth";
-import  { getUser, login, patchUserData, logout, resetPass } from "../../utils/api"
+import  { getUser, login, patchUserData, logout, resetPass, forgotPass } from "../../utils/api"
 import { setUser, setIsAuthChecked } from "../slices/formSlice";
 
 
@@ -82,6 +82,18 @@ export const logoutUser = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
     "resetPassword",
     (form) => {
+        console.log(form)
         return  resetPass(form)
     }
 )
+
+export const forgotPassword = createAsyncThunk(
+    "forgotPassword",
+    async (email) => {
+        return  await forgotPass(email)
+            .then( res => {
+                console.log(res)
+                return res
+            });
+    }
+);

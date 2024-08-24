@@ -23,7 +23,7 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation();
   const background = location.state && location.state.background;
-  console.log(background)
+
   const closeModal = () => {
       setIsModal(false)
       navigate(-1)
