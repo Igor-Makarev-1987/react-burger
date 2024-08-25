@@ -32,7 +32,7 @@
     };
   
     return (
-      <>
+
         <form className={registrationStyle.main} onSubmit={handleSubmit}>
           <p className="text text_type_main-medium">Регистрация</p>
           <Input
@@ -87,7 +87,7 @@
             </Link>
           </p>
         </form>
-      </>
+
     );
   };
 

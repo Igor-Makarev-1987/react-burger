@@ -11,7 +11,6 @@ const CurrentOrder = ({onClose}) => {
     const order = useSelector(state => state.checkout.orderId)
 
     return (
-        <>
             <div className="body">
                 <div className={`${modalStyle.row} ${orderStyle.numberOrder}`}>{order}</div>
                 <div className={`${orderStyle.mt2} ${modalStyle.row} ${orderStyle.identificatorOrder}`}>идентификатор заказа</div>
@@ -23,7 +22,6 @@ const CurrentOrder = ({onClose}) => {
                 <div className={`${orderStyle.mt4} ${modalStyle.row} ${orderStyle.infoOrder}`}> Ваш заказ начали готовить</div>
                 <div className={`${modalStyle.row} ${orderStyle.infoOrderGet}`}> Дождитесь готовности на орбитальной станции</div>
             </div> 
-        </>
     )
 }
 

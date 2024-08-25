@@ -37,8 +37,8 @@ export const checkUserAuth = createAsyncThunk(
                 dispatch(setUser(res.user))
             })
             .catch( err => {
-              localStorage.removeItem("accessToken")
-              localStorage.removeItem("refreshToken")
+              //localStorage.removeItem("accessToken")
+              //localStorage.removeItem("refreshToken")
             })
             .finally( () => dispatch(setIsAuthChecked(true)))
         } else {

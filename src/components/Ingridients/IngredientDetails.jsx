@@ -8,9 +8,11 @@ import { loadAllIngredients } from "../../services/actions/ingridientAction";
 
 const IngredientDetails = () => {
     const dispatch = useDispatch();
-    useEffect( () => {
-        dispatch( loadAllIngredients() )
-    }, [dispatch])
+
+    // useEffect( () => {
+    //     dispatch( loadAllIngredients() )
+    // }, [dispatch])
+
     const data = useSelector(state => state.viewedIngridient.currentIngridient)
     const id = useParams()
     const ingridients  = useSelector( (state) => 

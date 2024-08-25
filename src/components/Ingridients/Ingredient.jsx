@@ -50,7 +50,6 @@ const Ingridient = ({data, onClick}) => {
     }, [selectedIngredients])
 
     return (
-        <>
          <Link to={`/ingredients/${data._id}`}
                state= {{ background: location }}
                key={data._id}
@@ -69,7 +68,6 @@ const Ingridient = ({data, onClick}) => {
                 </div>
             </div>
         </Link>
-        </>
     )
   }
 

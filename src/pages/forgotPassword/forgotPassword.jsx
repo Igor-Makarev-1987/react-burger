@@ -28,7 +28,6 @@ import {
     };
   
     return (
-      <>
         <form className={forgotPasswordStyle.main} onSubmit={handleSubmit}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <Input
@@ -62,7 +61,6 @@ import {
             </Link>
           </p>
         </form>
-      </>
     );
   };
   

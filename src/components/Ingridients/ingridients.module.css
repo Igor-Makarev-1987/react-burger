@@ -41,10 +41,6 @@
 }
 
 .count {
-    /* background-color: #4C4CFF;
-    height: 32px;
-    width: 32px;
-    border-radius: 16px; */
     display: flex!;
     flex-direction: row;
     justify-content: space-around;

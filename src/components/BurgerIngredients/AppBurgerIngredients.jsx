@@ -84,7 +84,7 @@ function BurgerIngredients() {
     }
     
     return (
-        <>
+
             <div className={burgerIngredientsStyle.container}>
                 <h3 className={`${burgerIngredientsStyle.mt4} ${burgerIngredientsStyle.title} `}>Соберите бургер</h3>
                 <Menu
@@ -122,14 +122,7 @@ function BurgerIngredients() {
                         </div>
                     </section>)}
             </div>
-            {/* {isModal && 
-                <Modal isOpen={isModal} onClose={closeModal}>
-                    <>                       
-                        <IngredientDetails onClose={closeModal}></IngredientDetails>
-                    </>
-                </Modal>
-            }  */}
-        </>
+ 
     )
 }
 

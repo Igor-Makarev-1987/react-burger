@@ -9,13 +9,11 @@ import RegistraionPage from '../../pages/registration/registration';
 import ResetPasswordPage from '../../pages/resetPassword/resetPassword';
 import { ForgotPasswordPage } from '../../pages/forgotPassword/forgotPassword';
 import NotFound404  from "../../pages/notFound/notFound404";
-// import { ProtectedRouteElement } from '../ProtectedRouteElement/ProtectedRouteElement';
-import { currentIngridient } from '../../services/slices/viewedIngridient';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../Ingridients/IngredientDetails';
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRouteElement/ProtectedRouteElement";
-// import { checkUserAuth } from '../../services/actions/loginAction';
 import { checkUserAuth } from '../../services/actions/formAction';
+import { loadAllIngredients } from '../../services/actions/ingridientAction';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,9 +27,14 @@ function App() {
       navigate(-1)
   }
 
+  // useEffect( () => {
+  //   dispatch( loadAllIngredients() )
+  // }, [dispatch])
+
   useEffect ( () => {
+    dispatch( loadAllIngredients() )
     dispatch(checkUserAuth())
-  }, [])
+  }, [dispatch])
   return (
     <>
           <AppHeader />
@@ -50,10 +53,8 @@ function App() {
           {background && (
             <Routes>
               <Route path="/ingredients/:id" element={
-                <Modal isOpen={isModal} onClose={closeModal}>
-                    <>                       
-                        <IngredientDetails></IngredientDetails>
-                    </>
+                <Modal isOpen={isModal} onClose={closeModal}>                    
+                    <IngredientDetails></IngredientDetails>
                 </Modal>
               }></Route>
             </Routes>

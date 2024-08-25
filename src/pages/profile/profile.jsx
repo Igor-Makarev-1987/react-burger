@@ -64,7 +64,6 @@ function ProfilePage({ activeTab }) {
       const ORDERS = "ORDERS";
 
     return (
-        <>
            <form className={profileStyle.main} onSubmit={handleSubmit}>
                 <div className={profileStyle.main__columnsWrapper}>
                 <div className={profileStyle.main__columnLeft}>
@@ -142,7 +141,6 @@ function ProfilePage({ activeTab }) {
                 </div>
                 </div>
             </form> 
-        </>
     )
 } 
 

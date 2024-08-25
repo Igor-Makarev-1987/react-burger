@@ -1,7 +1,6 @@
 import {fetchIngridientsRequest} from '../../utils/api';
 import {v4 as uidd} from 'uuid'
 
-const API_BASE = 'https://norma.nomoreparties.space/api/ingredients';
 export const ADD_INGRIDIENT = 'ADD_INGRIDIENT';
 export const CURRENT_INGRIDIENTS = 'CURRENT_INGRIDIENTS';
 export const GET_INGRIDIENTS_REQUEST = 'GET_INGRIDIENTS_REQUEST';

@@ -22,7 +22,6 @@ function LoginPage() {
     };
   
     return (
-      <>
         <form className={loginStyle.main} onSubmit={handleSubmit}>
         <p className="text text_type_main-medium">Вход</p>
         <Input
@@ -75,7 +74,6 @@ function LoginPage() {
           </Link>
         </p>
       </form>
-      </>
     );
 }
   

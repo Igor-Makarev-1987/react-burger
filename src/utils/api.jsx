@@ -1,9 +1,7 @@
 import { checkResponse } from "./checkResponse";
 import { getCookie } from "../utils/cookieHandler";
 import { fetchWithRefresh } from "../services/auth"
-// import {userUpdateInput } from "../types/user";
-
-const API_BASE = 'https://norma.nomoreparties.space/api';
+import { API_BASE } from "../utils/const";
 
 export const fetchIngridientsRequest = async () => {
     return await fetch(`${API_BASE}/ingredients`)
@@ -37,7 +35,7 @@ export const forgotPass = (email) => {
 }
 
 export const register = async ({email, name, password}) => {
-  return await fetch(`${API_BASE}/auth/register`, {
+  return await fetchWithRefresh(`${API_BASE}/auth/register`, {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -104,7 +102,7 @@ export const login = async({ email, password }) => {
 
 // получение данных пользователя не работает fetchWithRefresh
 export const getUser = async () => {
-      return await fetchWithRefresh(`${API_BASE}/auth/user`, {
+      return await fetch(`${API_BASE}/auth/user`, {
           method: "GET",
           mode: "cors",
           cache: "no-cache",

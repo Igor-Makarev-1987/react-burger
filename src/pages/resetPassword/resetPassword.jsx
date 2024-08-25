@@ -4,7 +4,7 @@ import {
   } from "@ya.praktikum/react-developer-burger-ui-components";
   import React, { useEffect, useState } from "react";
   import resetPasswordStyle from "./resetPassword.module.css";
-  import { Link, useHistory, useNavigate } from "react-router-dom";
+  import { Link, useHistory, useNavigate , useLocation} from "react-router-dom";
 
   import { useDispatch, useSelector } from "react-redux";
   import { resetPassword } from "../../services/actions/formAction";
@@ -20,7 +20,15 @@ import {
     const changeInputValue = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
-  
+    const isForgotPassword = useSelector( (state) => state.form.isForgotPassword)
+
+    useEffect( () => {
+      if(!isForgotPassword) {
+        navigate("/forgot-password")
+      }
+    }, [navigate])
+
+
     const handleSumbit = async (e) => {
       // console.log(formValues)
       e.preventDefault();
@@ -31,7 +39,6 @@ import {
     };
   
     return (
-      <>
         <form className={resetPasswordStyle.main} onSubmit={handleSumbit}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <Input
@@ -71,7 +78,6 @@ import {
             </Link>
           </p>
         </form>
-      </>
     );
   };
 

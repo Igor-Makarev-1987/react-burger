@@ -16,6 +16,7 @@ const initialState = {
     isAuthChecked: false,
     logoutFormSuccess: false,
     logoutFormFailed: false,
+    isForgotPassword: false,
 };
 
 const formSlice = createSlice({
@@ -64,7 +65,7 @@ const formSlice = createSlice({
             })
             // редактирование параметров пользователя
             .addCase(setUserData.fulfilled, (state, action) => {
-                console.log(action.payload)
+                // console.log(action.payload)
                 state.userInfo = action.payload.user
                 state.isAuthChecked = true
                 state.userInfoSuccess = true
@@ -78,6 +79,7 @@ const formSlice = createSlice({
             .addCase(logoutUser.fulfilled, (state, action) => {
                 state.userInfo = null
                 state.isAuthChecked = true
+                state.isForgotPassword = false;
             })
             .addCase(resetPassword.fulfilled, (state) => {
                 state.updateFormFailed = true
@@ -88,14 +90,17 @@ const formSlice = createSlice({
             .addCase(forgotPassword.fulfilled, (state) => {
                 state.updateFormFailed = false;
                 state.updateFormSuccess = true;
+                state.isForgotPassword = true;
             })
             .addCase(forgotPassword.pending, (state) => {
                 state.updateFormFailed = false;
                 state.updateFormSuccess = false;
+                state.isForgotPassword = false;
             })
             .addCase(forgotPassword.rejected, (state) => {
                 state.updateFormFailed = false;
                 state.updateFormSuccess = false;
+                state.isForgotPassword = false;
                 state.error = "User password reset has failed, please contact support.";
             })
     }

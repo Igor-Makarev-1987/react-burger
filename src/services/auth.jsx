@@ -1,5 +1,5 @@
 import { checkResponse } from "../utils/checkResponse";
-const API_BASE = 'https://norma.nomoreparties.space/api';
+import { API_BASE } from "../utils/const";
 
 export const refreshToken = () => {
     return fetch(`${API_BASE}/auth/token`, {
