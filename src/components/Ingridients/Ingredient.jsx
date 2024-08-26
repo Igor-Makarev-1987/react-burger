@@ -5,7 +5,8 @@ import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 import PropTypes from 'prop-types';
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
-import {changeDraggingIngredientState} from '../../services/slices/constructorIngridientsSlice'
+import {changeDraggingIngredientState} from '../../services/slices/constructorIngridientsSlice';
+import { useLocation, Link  } from 'react-router-dom';
 
 const Ingridient = ({data, onClick}) => {
     const dispatch = useDispatch()
@@ -17,6 +18,7 @@ const Ingridient = ({data, onClick}) => {
             isDrag: monitor.isDragging()
         })
     })
+    const location = useLocation();
 
     useEffect( () => {
         dispatch( changeDraggingIngredientState(isDrag) )
@@ -46,21 +48,26 @@ const Ingridient = ({data, onClick}) => {
             setCount(count.length)
         }
     }, [selectedIngredients])
-    
+
     return (
-        <div className={ingridientsStyle.product} onClick={handleClick} ref={dragRef}>
-            <div className={ingridientsStyle.card}>
-                <span className={`${ingridientsStyle.positionCount}`}>                    
-                    <div className={ingridientsStyle.count}>
-                        {count && <Counter count={count} />}
-                    </div>
-                </span>
-                <img className={ingridientsStyle.picture} src={data.image} />
-                <div className={ingridientsStyle.price}>{data.price} <span className={ingridientsStyle.icon}><CurrencyIcon type="primary" /></span></div> 
-                <div className={ingridientsStyle.price}>{data.name}</div> 
+         <Link to={`/ingredients/${data._id}`}
+               state= {{ background: location }}
+               key={data._id}
+               className={ingridientsStyle.link}
+             >  
+            <div className={ingridientsStyle.product} onClick={handleClick} ref={dragRef}>
+                <div className={ingridientsStyle.card}>
+                    <span className={`${ingridientsStyle.positionCount}`}>                    
+                        <div className={ingridientsStyle.count}>
+                            {count && <Counter count={count} />}
+                        </div>
+                    </span>
+                    <img className={ingridientsStyle.picture} src={data.image} />
+                    <div className={ingridientsStyle.price}>{data.price} <span className={ingridientsStyle.icon}><CurrencyIcon type="primary" /></span></div> 
+                    <div className={ingridientsStyle.price}>{data.name}</div> 
+                </div>
             </div>
-        </div>
-  
+        </Link>
     )
   }
 

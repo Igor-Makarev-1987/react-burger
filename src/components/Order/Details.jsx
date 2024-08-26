@@ -10,13 +10,20 @@ import ModalOverlay from '../Modal/ModalOverlay';
 import OrderDetails from './OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { postOrder } from '../../services/actions/orderAction';
+import { useNavigate } from 'react-router-dom';
 
 
 const Order = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dispatch = useDispatch();
 
+    const navigate = useNavigate()
+    const user = useSelector( (state) => state.form.userInfo);
     const openModal = () => {
+        if(!user) {
+            navigate('/login')
+        }
+        
         setIsOpen(!isOpen);
         checkout();
     }

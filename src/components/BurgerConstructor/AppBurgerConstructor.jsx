@@ -7,7 +7,6 @@ import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 import { useDispatch, useSelector } from 'react-redux';
-import {ADD_INGRIDIENT} from '../../services/actions/ingridientsAction';
 import {addIngridient} from '../../services/slices/constructorIngridientsSlice';
 import {useDrop} from 'react-dnd';
 import { v4 as uuid } from 'uuid';
