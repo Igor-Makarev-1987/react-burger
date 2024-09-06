@@ -4,6 +4,18 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 // import { useAppSelector } from "../../redux/store";
 import profileInputStyle from "./profileInput.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../../services/store"; 
+// import { Input } from "../../../src/input";
+
+type TPropsProfileInputs = {
+  name: string;
+  setName: (s:string) => void;
+  login: string;
+  setLogin: (s: string) => void;
+  password: string;
+  setPassword: (s: string) => void;
+  setDataIsChanged: (b: boolean) => void;
+}
 
 export const ProfileInputs = ({
   name,
@@ -13,15 +25,15 @@ export const ProfileInputs = ({
   password,
   setPassword,
   setDataIsChanged,
-}) => {
-  const nameInputRef = useRef(null);
-  const loginInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
+}: TPropsProfileInputs): React.JSX.Element => {
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const loginInputRef = useRef<HTMLInputElement>(null);
+  const passwordInputRef = useRef<HTMLInputElement>(null);
   const [isNameInputActive, setIsNameInputActive] = useState(false);
   const [isLoginInputActive, setIsLoginInputActive] = useState(false);
   const [isPasswordInputActive, setIsPasswordInputActive] = useState(false);
-  const dispatch = useDispatch();
-//   const user = useAppSelector(selectUserData);
+  const dispatch = useAppDispatch();
+  // const user = useAppSelector(selectUserData);
 
   const setAllInputsInactive = useCallback(() => {
     setIsNameInputActive(false);
@@ -29,9 +41,9 @@ export const ProfileInputs = ({
     setIsPasswordInputActive(false);
   }, []);
 
-//   useEffect(() => {
-//     setAllInputsInactive();
-//   }, [setAllInputsInactive, user]);
+  useEffect(() => {
+    setAllInputsInactive();
+  }, [setAllInputsInactive]);
 
   return (
     <>
@@ -62,6 +74,7 @@ export const ProfileInputs = ({
         size={"default"}
         extraClass="ml-1"
       />
+
       <Input
         ref={loginInputRef}
         disabled={isLoginInputActive ? false : true}
@@ -89,6 +102,7 @@ export const ProfileInputs = ({
         size={"default"}
         extraClass="ml-1 mt-6"
       />
+
       <Input
         ref={passwordInputRef}
         disabled={isPasswordInputActive ? false : true}

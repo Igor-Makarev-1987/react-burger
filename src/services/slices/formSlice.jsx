@@ -91,11 +91,12 @@ const formSlice = createSlice({
                 state.updateFormFailed = false;
                 state.updateFormSuccess = true;
                 state.isForgotPassword = true;
+                console.log(state.isForgotPassword)
             })
             .addCase(forgotPassword.pending, (state) => {
                 state.updateFormFailed = false;
                 state.updateFormSuccess = false;
-                state.isForgotPassword = false;
+                state.isForgotPassword = true;
             })
             .addCase(forgotPassword.rejected, (state) => {
                 state.updateFormFailed = false;

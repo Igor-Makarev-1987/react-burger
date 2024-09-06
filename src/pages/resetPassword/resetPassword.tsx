@@ -2,26 +2,29 @@ import {
     Input,
     Button,
   } from "@ya.praktikum/react-developer-burger-ui-components";
-  import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState, FormEvent  } from "react";
   import resetPasswordStyle from "./resetPassword.module.css";
-  import { Link, useHistory, useNavigate , useLocation} from "react-router-dom";
-
+  import { Link, useNavigate , useLocation} from "react-router-dom";
+  import { useAppSelector } from "../../services/store";
   import { useDispatch, useSelector } from "react-redux";
   import { resetPassword } from "../../services/actions/formAction";
+  import { TFormValues } from "../../types/types";
 
+  type TResetForm = Pick<TFormValues, "password"> & {token: string}
   
   function ResetPasswordPage() {
     const [password, setPassword] = useState("");
     const [token, setToken] = useState("");
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate()
-    const [formValues, setFormValues] = useState({ password: "", token: "" });
-    const changeInputValue = (e) => {
+    const navigate = useNavigate();
+    const [formValues, setFormValues] = useState<TResetForm>({ password: "", token: "" });
+    const changeInputValue: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
+    // @ts-ignore
     const isForgotPassword = useSelector( (state) => state.form.isForgotPassword)
-
+    console.log(isForgotPassword)
     useEffect( () => {
       if(!isForgotPassword) {
         navigate("/forgot-password")
@@ -29,11 +32,11 @@ import {
     }, [navigate])
 
 
-    const handleSumbit = async (e) => {
-      // console.log(formValues)
+    const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       let password = formValues.password
       let token = formValues.token
+      // @ts-ignore
       dispatch(resetPassword({password, token}))
       navigate("/", { replace: true});
     };

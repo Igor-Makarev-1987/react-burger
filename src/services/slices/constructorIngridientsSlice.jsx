@@ -16,7 +16,7 @@ const constructorIngridients = createSlice({
     initialState,
     reducers: {
         addIngridient: (state, action) => {
-            console.log(action.payload)
+            // console.log(action.payload)
             // console.log(state.constructorIngridient.ingridients)
 
             let newConstructorIngridients;

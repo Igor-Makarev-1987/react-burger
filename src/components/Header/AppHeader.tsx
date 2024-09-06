@@ -6,7 +6,7 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink, useLocation } from "react-router-dom";
 
-function AppHeader() {
+function AppHeader(): React.JSX.Element {
     return (
         <header className={headerStyles.layout}>
             <div className={headerStyles.container}>

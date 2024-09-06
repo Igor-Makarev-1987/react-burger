@@ -2,27 +2,30 @@ import {
     Input,
     Button,
   } from "@ya.praktikum/react-developer-burger-ui-components";
-  import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState, SyntheticEvent } from "react";
   import forgotPasswordStyle from "./forgotPassword.module.css";
-  import { Link, useHistory, useLocation, useNavigate } from "react-router-dom";
+  import { Link, useLocation, useNavigate } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";
   import {
     forgotPassword,
   } from "../../services/actions/forgotPassAction";
+  import { useAppDispatch } from "../../services/store";
 
   
   export const ForgotPasswordPage = () => {
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState<string>("");
     const location = useLocation()
     const navigate = useNavigate()
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
   
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: SyntheticEvent) => {
       e.preventDefault();
       if (!email) {
         alert("Please enter your email!");
         return;
       }
+
+      // @ts-ignore
       dispatch(forgotPassword(email));
       navigate("/reset-password", { state: { from: location } });
     };

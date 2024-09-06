@@ -7,12 +7,27 @@ import { deleteIngridients, moveIngredients } from '../../services/slices/constr
 import { useRef } from 'react';
 import { useDrag, useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
+import { IIngredientDetail } from "../../types/types";
+import { useAppDispatch } from '../../services/store';
+import type { Identifier } from "dnd-core";
+import { IDragObject } from '../../types/types';
 
-const List = ({data, orderIndex}) => {
-    const dispatch = useDispatch();
+type TList = {
+  data: IIngredientDetail
+  orderIndex: number
+}
+
+interface DragItem {
+  orderIndex: number;
+  id: number | undefined;
+  type: string;
+}
+
+const List = ({data, orderIndex}: TList): React.JSX.Element => {
+    const dispatch = useAppDispatch();
     const ACCEPTED_TYPE = "selectedIngredient";
-    const ref = useRef(null);
-    const [, dragRef] = useDrag({
+    const ref = useRef<HTMLDivElement>(null);
+    const [, dragRef] = useDrag<TList, unknown, {isDragging: boolean}>({
         type: ACCEPTED_TYPE,
         item: { data, orderIndex },
         collect: (monitor) => ({
@@ -20,9 +35,9 @@ const List = ({data, orderIndex}) => {
         }),
       });
 
-    const [, drop] = useDrop({
+    const [, drop] = useDrop<DragItem, unknown, { handlerId: Identifier | null }>({
         accept: ACCEPTED_TYPE,
-        hover(item) {
+        hover(item: DragItem) {
           if (!ref.current) {
             return;
           }
@@ -43,19 +58,20 @@ const List = ({data, orderIndex}) => {
 
     dragRef(drop(ref));
 
-    const handleIngredientRemoval = (id) => () => {
+    const handleIngredientRemoval = (id: number | undefined) => () => {
+      console.log(id)
         dispatch(deleteIngridients(id));
     };
     return (
  
         <div ref={ref} className={`${listStyle.row} ${listStyle.constructorElement}`}>
             <span className={`${listStyle.paramsWidth} ${listStyle.cursor}`} >
-                <DragIcon></DragIcon>
+                <DragIcon type="primary" ></DragIcon>
                 <ConstructorElement
                     text={data.name}
                     price={data.price}
                     thumbnail={data.image}
-                    handleClose={handleIngredientRemoval(data.id)}
+                    handleClose={handleIngredientRemoval(data?.id)}
                 ></ConstructorElement>
             </span>
         </div>

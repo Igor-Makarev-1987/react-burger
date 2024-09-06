@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from '../src/services/store';
+import { store } from './services/store';
 import {BrowserRouter as Router} from 'react-router-dom';
 
 // use only typescript
@@ -13,7 +13,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 // );
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root')
+  document.getElementById('root')!
 );
 
 // const composeEnhancers =

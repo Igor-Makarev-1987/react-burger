@@ -1,5 +1,5 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { SyntheticEvent, useCallback, useEffect, useState } from "react";
+import React, { SyntheticEvent, useCallback, useEffect, useState, FormEvent } from "react";
 import { Link, replace, useNavigate } from "react-router-dom";
 
 import { ProfileInputs } from "../../components/ProfileInput/ProfileInput";
@@ -8,18 +8,26 @@ import profileStyle from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserParam } from "../../services/actions/formAction";
 import { setUserData } from "../../services/actions/formAction";
+import { useAppSelector, useAppDispatch } from "../../services/store";
 
-function ProfilePage({ activeTab }) {
+type TProfilePageProps= {
+    activeTab: string
+}
+
+
+function ProfilePage({ activeTab }: TProfilePageProps) {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [login, setLogin] = useState("");
     const [dataIsChanged, setDataIsChanged] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    // @ts-ignore
     const user = useSelector( (state) => state.form.userInfo);
 
+    type TSetInitialState = () => void;
 
-    const setInitialState = useCallback(() => {
+    const setInitialState = useCallback<TSetInitialState>(() => {
         if (user && user.name && user.email) {
           setName(user.name);
           setLogin(user.email);
@@ -32,11 +40,11 @@ function ProfilePage({ activeTab }) {
         setInitialState();
     }, [setInitialState]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (dataIsChanged) {
-            dispatch(
-                setUserData({
+            // @ts-ignore
+            dispatch(setUserData({
                     name,
                     email: login,
                     password,
@@ -48,11 +56,13 @@ function ProfilePage({ activeTab }) {
     };
 
     const handleLogout = () => {
+        // @ts-ignore
         dispatch(logoutUser())
         navigate('/login', {replace: true});
     };
 
     useEffect( () => {
+        // @ts-ignore
         dispatch(getUserParam())
     }, [dispatch])
 

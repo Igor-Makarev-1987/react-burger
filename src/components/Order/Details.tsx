@@ -11,14 +11,16 @@ import OrderDetails from './OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { postOrder } from '../../services/actions/orderAction';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '../../services/store';
+import { IIngredient } from '../../types/types'; 
 
 
 const Order = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const navigate = useNavigate()
-    const user = useSelector( (state) => state.form.userInfo);
+    const user = useAppSelector( (state) => state.form.userInfo);
     const openModal = () => {
         if(!user) {
             navigate('/login')
@@ -31,19 +33,24 @@ const Order = () => {
     const closeModal = () => {
         setIsOpen(!isOpen);
     }
-
-    // const constructorIngridients = useSelector( state => state.ingridients.constructorIngridient)
+    // @ts-ignore
     const constructorIngridients = useSelector( state => state.constructorIngridients.constructorIngridient)
-
+    // const constructorIngridients = useAppSelector( state => state.constructorIngridients.constructorIngridient)
     const checkout = async () => {
-        const ingridients_Id = constructorIngridients.ingridients.map( value => value._id)
+        const ingridients_Id = constructorIngridients.ingridients.map( (value: IIngredient) => {
+            return value._id
+        })
         // переделать под чистую функцию!!!
         if(constructorIngridients.bun.length > 0) {
-            ingridients_Id.push(constructorIngridients.bun[0]._id)
+            constructorIngridients.bun.map( (ingridient: IIngredient) => {
+                ingridients_Id.push(ingridient._id)
+            })
+            // ingridients_Id.push(constructorIngridients.bun?._id)
         }
         
         if (ingridients_Id.length > 0) {
-            dispatch(postOrder(ingridients_Id));
+            // @ts-ignore
+           dispatch(postOrder(ingridients_Id));
         }
 
     }
@@ -52,17 +59,20 @@ const Order = () => {
 
     // const constructorIngridient = useSelector( state => state.ingridients.constructorIngridient)
    
-    const totalSum = useMemo( () => {
+    const totalSum = useMemo<number>( () => {
         let total = 0;
         let totalBun = 0
         let totalIngridients = 0;
         if(constructorIngridients.bun.length > 0) {
-            totalBun = constructorIngridients.bun[0].price * 2 
+            constructorIngridients.bun.map( (ingridient: IIngredient) => {
+                totalBun = ingridient.price * 2;
+            })
+            // totalBun = constructorIngridients.bun[0].price * 2 
         } 
 
         if(constructorIngridients.ingridients.length > 0) {
-            totalIngridients =  constructorIngridients.ingridients.reduce( 
-                (sum, current) => sum + current.price, 0
+            totalIngridients =  constructorIngridients?.ingridients.reduce( 
+                (sum: number, current: IIngredient) => sum + current.price, 0
             )
         }
 
@@ -89,7 +99,7 @@ const Order = () => {
                     </span>
                 </div>
 
-                {isOpen && <Modal isOpen={isOpen} onClose={closeModal}>
+                {isOpen && <Modal onClose={closeModal} >
                     <>
                         <OrderDetails onClose={closeModal}></OrderDetails>
                     </>

@@ -1,14 +1,18 @@
 import orderStyle from './order.module.css';
 import modalStyle from '../Modal/modal.module.css';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import  ModalOverlay from '../Modal/ModalOverlay';
+// import  ModalOverlay from '../Modal/ModalOverlay';
 import {useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/store';
 
+type TOrderDetail = {
+    onClose: () => void
+}
 
-const CurrentOrder = ({onClose}) => {
-    const order = useSelector(state => state.checkout.orderId)
+const CurrentOrder = ({onClose}: TOrderDetail): React.JSX.Element => {
+    const order = useAppSelector(state => state.checkout.orderId)
 
     return (
             <div className="body">
@@ -25,8 +29,8 @@ const CurrentOrder = ({onClose}) => {
     )
 }
 
-CurrentOrder.propTypes = {
-    onClose: PropTypes.func
-}
+// CurrentOrder.propTypes = {
+//     onClose: PropTypes.func
+// }
 
 export default CurrentOrder

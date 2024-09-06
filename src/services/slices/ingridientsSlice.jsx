@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadAllIngredients } from "../actions/ingridientAction";
+import { getIngridients } from "../actions/ingridientsAction";
+import { RootState } from "../store";
 
 const initialState = {
     ingridients: [],
@@ -35,6 +37,13 @@ const ingridientSlice = createSlice({
           });
     },
 });
+
+// export const getAllIngridients (rootState: RootState) => 
+//   rootState.ingridients.ingridients
+
+
+// export const selectSelectedIngredients = (rootState: RootState) =>
+//   rootState.ingredients.selectedIngredients;
 
 export const {
 
