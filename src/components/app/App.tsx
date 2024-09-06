@@ -14,9 +14,10 @@ import IngredientDetails from '../Ingridients/IngredientDetails';
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRouteElement/ProtectedRouteElement";
 import { checkUserAuth } from '../../services/actions/formAction';
 import { loadAllIngredients } from '../../services/actions/ingridientAction';
+import { useAppDispatch } from '../../services/store';
 
-function App() {
-  const dispatch = useDispatch();
+function App(): React.JSX.Element {
+  const dispatch = useAppDispatch();
   const [isModal, setIsModal] = useState(true);
   const navigate = useNavigate()
   const location = useLocation();
@@ -27,13 +28,11 @@ function App() {
       navigate(-1)
   }
 
-  // useEffect( () => {
-  //   dispatch( loadAllIngredients() )
-  // }, [dispatch])
-
   useEffect ( () => {
+    // @ts-ignore
     dispatch( loadAllIngredients() )
-    dispatch(checkUserAuth())
+    // @ts-ignore
+    dispatch( checkUserAuth() )
   }, [dispatch])
   return (
     <>
@@ -53,8 +52,8 @@ function App() {
           {background && (
             <Routes>
               <Route path="/ingredients/:id" element={
-                <Modal isOpen={isModal} onClose={closeModal}>                    
-                    <IngredientDetails></IngredientDetails>
+                <Modal onClose={closeModal}>                    
+                    <IngredientDetails />
                 </Modal>
               }></Route>
             </Routes>

@@ -2,11 +2,11 @@
     Button,
     Input,
   } from "@ya.praktikum/react-developer-burger-ui-components";
-  import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState, SyntheticEvent, FormEvent } from "react";
   import registrationStyle from "./registration.module.css";
   import { Link, useNavigate } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";
-
+  import { useAppDispatch, useAppSelector } from "../../services/store";
   import { registerUser } from "../../services/actions/registerAction";
 
   
@@ -16,6 +16,7 @@
     const [password, setPassword] = useState("");
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const navigate = useNavigate()
+    // @ts-ignore
     const user = useSelector((state) => state.form.userInfo);
     // const isUserRegistered = useSelector( (state) => state.auth);
 
@@ -26,8 +27,9 @@
       }
     }, [navigate, user]);
   
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      // @ts-ignore
       dispatch(registerUser({ email, password, name}));
     };
   

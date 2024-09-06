@@ -10,9 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import {addIngridient} from '../../services/slices/constructorIngridientsSlice';
 import {useDrop} from 'react-dnd';
 import { v4 as uuid } from 'uuid';
+import { useAppSelector, useAppDispatch } from '../../services/store';
+import { IIngredientDetail } from "../../types/types";
+import type { Identifier } from "dnd-core";
 
 
-function BurgerConstructor() {
+function BurgerConstructor(): React.JSX.Element {
     // const {data, isLoading, error} = useSelector( (state) => (state.ingridients.constructorIngridient
     //  убрано по причине warning
     //     {
@@ -21,14 +24,15 @@ function BurgerConstructor() {
     //     error: state.ingridients.error
     // }
     // ));
-    const {constructorIngridient, isLoading, error} = useSelector( (state) => state.constructorIngridients);
-    const isIngredientDragged = useSelector( (state) => state.constructorIngridients.isIngredientDragged);
-    const dispatch = useDispatch();
+    const {constructorIngridient, isLoading, error} = useAppSelector( (state) => state.constructorIngridients);
+    const isIngredientDragged = useAppSelector( (state) => state.constructorIngridients.isIngredientDragged);
+    const dispatch = useAppDispatch();
 
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop<IIngredientDetail, unknown, { handlerId: Identifier | null }>({
         accept: 'ingridient',
         drop(item) {
-          dispatch(addIngridient({...item, id:uuid()}))
+          // @ts-ignore
+          dispatch(addIngridient({...(item as object), id:uuid()}))
         } 
     })
 
@@ -44,7 +48,7 @@ function BurgerConstructor() {
                     <div className={listStyle.container} >
                         <div className={`${listStyle.scroll} ${burgerConstructorStyle.column}`} style={{outline}}>
                             {!isLoading && constructorIngridient.ingridients && constructorIngridient.ingridients.map( 
-                                (component, index) => <List data={component} key={component.id} orderIndex={index}></List>
+                                (component: IIngredientDetail, index) => <List data={component} key={component.id} orderIndex={index}></List>
                             )}
                         </div>
                     </div>
@@ -57,14 +61,14 @@ function BurgerConstructor() {
 }
 
 // проверка на типизацию
-BurgerConstructor.propTypes = {
+// BurgerConstructor.propTypes = {
     // data: PropTypes.shape({
     //     success: PropTypes.bool,
     //     data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
     // }),
     // isLoading: PropTypes.bool.isRequired,
     // hasError: PropTypes.bool.isRequired
-}
+// }
 
 
 export default BurgerConstructor

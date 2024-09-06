@@ -1,7 +1,7 @@
 import {createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    currentIngridient: ''
+    currentIngridient: {}
 }
 
 const viewedIngridient = createSlice({

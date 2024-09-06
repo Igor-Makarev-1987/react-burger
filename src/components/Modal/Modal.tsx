@@ -8,8 +8,13 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.querySelector('#modals');
 
-const Modal = ({children, onClose}) => {
-    const onKey = (e) => {
+type TPropsModal = {
+    children?: React.ReactNode;
+    onClose: () => void;
+}
+
+const Modal = ({children, onClose}: TPropsModal): React.JSX.Element | null => {
+    const onKey = (e: KeyboardEvent) => {
         if(e.key == "Escape" ) {
             onClose()
         }
@@ -26,6 +31,10 @@ const Modal = ({children, onClose}) => {
     // if (!isOpen) {
     //   return null;
     // }
+
+    if(!modalRoot) {
+        return null;
+    }
   
     return ReactDOM.createPortal(
         <>
@@ -43,10 +52,10 @@ const Modal = ({children, onClose}) => {
     );
   };
 
-  Modal.propTypes = {
-    children: PropTypes.node, 
-    // isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func
-  }
+//   Modal.propTypes = {
+//     children: PropTypes.node, 
+//     isOpen: PropTypes.bool.isRequired,
+//     onClose: PropTypes.func
+//   }
   
   export default Modal;

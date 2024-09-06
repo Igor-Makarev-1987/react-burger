@@ -7,11 +7,22 @@ import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 import {changeDraggingIngredientState} from '../../services/slices/constructorIngridientsSlice';
 import { useLocation, Link  } from 'react-router-dom';
+import { useAppSelector,  useAppDispatch } from "../../services/store";
+import { IIngredient, IDragObject } from '../../types/types';
 
-const Ingridient = ({data, onClick}) => {
-    const dispatch = useDispatch()
-    const [count, setCount] = useState(null);
-    const [{isDrag}, dragRef] = useDrag({ 
+type IIngredienttype =  {
+    data: IIngredient
+    onClick: () => void
+}
+
+type TDragCollectedProps = {
+    isDrag: boolean
+}
+
+const Ingridient = ({data, onClick}: IIngredienttype): React.JSX.Element => {
+    const dispatch = useAppDispatch()
+    const [count, setCount] = useState<number | null>(null);
+    const [{isDrag}, dragRef] = useDrag<IIngredient, unknown, TDragCollectedProps>({ 
         type: "ingridient",
         item: data,
         collect: monitor => ({
@@ -25,11 +36,12 @@ const Ingridient = ({data, onClick}) => {
       }, [dispatch, isDrag])
 
     const handleClick = () => {
-        onClick(data)
+        // console.log(data)
+        onClick() // data
     }
 
     // выбранные ингридиенты
-    const selectedIngredients = useSelector( (state) => state.constructorIngridients.constructorIngridient);
+    const selectedIngredients = useAppSelector( state => state.constructorIngridients.constructorIngridient);
     // const {dat, isLoading, error} = useSelector( (state) => ({
     //     dat: state.ingridients.constructorIngridient,
     //     isLoading: state.ingridients.isLoading,
@@ -39,11 +51,12 @@ const Ingridient = ({data, onClick}) => {
     useEffect(() => {
         setCount(null);
         let count = null;
-        if(selectedIngredients.bun.length > 0 && selectedIngredients.bun[0]._id === data._id)  {
+        let selBun = selectedIngredients.bun.filter( (ingridient: IIngredient) => ingridient._id === data._id)
+        if(selBun.length > 0)  {
             setCount(2)
         }
 
-        count = selectedIngredients.ingridients.filter((ingridient) => ingridient._id === data._id)
+        count = selectedIngredients.ingridients.filter((ingridient: IIngredient) => ingridient._id === data._id)
         if(count.length > 0 ) {
             setCount(count.length)
         }
@@ -55,7 +68,7 @@ const Ingridient = ({data, onClick}) => {
                key={data._id}
                className={ingridientsStyle.link}
              >  
-            <div className={ingridientsStyle.product} onClick={handleClick} ref={dragRef}>
+            <div className={ingridientsStyle.product} onClick={() => handleClick} ref={dragRef}>
                 <div className={ingridientsStyle.card}>
                     <span className={`${ingridientsStyle.positionCount}`}>                    
                         <div className={ingridientsStyle.count}>
@@ -71,9 +84,9 @@ const Ingridient = ({data, onClick}) => {
     )
   }
 
-Ingridient.propTypes = {
-    data: ingridientPropTypes.isRequired,
-    onClick: PropTypes.func
-}
+// Ingridient.propTypes = {
+//     data: ingridientPropTypes.isRequired,
+//     onClick: PropTypes.func
+// }
 
 export default Ingridient;

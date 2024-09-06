@@ -1,15 +1,20 @@
 import { checkResponse } from "./checkResponse";
-import { getCookie } from "../utils/cookieHandler";
+// import { getCookie } from "../utils/cookieHandler";
 import { fetchWithRefresh } from "../services/auth"
-import { API_BASE } from "../utils/const";
+import { API_BASE } from "./const";
+import { IIngredientDetail, TForgotPassRes, TGetUserRes, TLogin, TRegisterRes, IIngredient } from "../types/types";
 
-export const fetchIngridientsRequest = async () => {
+export const fetchIngridientsRequest = async (): Promise<Array<IIngredient>> => {
     return await fetch(`${API_BASE}/ingredients`)
-        .then(checkResponse)
+        .then(checkResponse<Array<IIngredient>>)
         .then(res => res)
 };
 
-export const submitOrder = async (ingredientIds) => {
+type TSubmitOrder = {
+  ingredientIds: string
+}
+
+export const submitOrder = async (ingredientIds: TSubmitOrder): Promise<IIngredientDetail> => {
     return await fetch(`${API_BASE}/orders`, {
         method: "POST",
         body: JSON.stringify({
@@ -18,10 +23,13 @@ export const submitOrder = async (ingredientIds) => {
       headers: {
         "Content-Type": "application/json",
       }
-    }).then(checkResponse).then(res => res)
+    }).then(checkResponse<IIngredientDetail>).then(res => res)
 }
 
-export const forgotPass = (email) => {
+type TForgotPass = {
+  email: string
+}
+export const forgotPass = (email: TForgotPass): Promise<TForgotPassRes> => {
   return fetch(`${API_BASE}/password-reset`, {
     method: "POST",
     body: JSON.stringify({
@@ -31,10 +39,18 @@ export const forgotPass = (email) => {
       "Content-Type": "application/json",
     }
   })
-    .then(checkResponse).then(res => res)
+    .then(checkResponse<TForgotPassRes>).then(res => { 
+      console.log(res)
+      return res
+    })
 }
 
-export const register = async ({email, name, password}) => {
+type TRegister = {
+  email: string
+  name: string
+  password: string
+}
+export const register = async ({email, name, password}: TRegister): Promise<TRegisterRes>=> {
   return await fetchWithRefresh(`${API_BASE}/auth/register`, {
     method: "POST",
     body: JSON.stringify({
@@ -46,13 +62,12 @@ export const register = async ({email, name, password}) => {
       "Content-Type": "application/json",
     }
   })
-    .then(checkResponse).then(res => {
-      let authToken;
-      if (res.accessToken.indexOf('Bearer') === 0) {
-        authToken = res.accessToken.split('Bearer ')[1];
-      }
+    .then(checkResponse<TRegisterRes>).then(res => {
       localStorage.setItem("refreshToken", res.refreshToken);
-      localStorage.setItem("accessToken", authToken);
+      if (res.accessToken.indexOf('Bearer') === 0) {
+        localStorage.setItem("accessToken", res.accessToken.split('Bearer ')[1]);
+      }
+
       return res;
     })
 }
@@ -61,24 +76,24 @@ export const register = async ({email, name, password}) => {
 
 
 // получение данных пользователя
-export const getUserData = async () => {
-  return fetchWithRefresh(`${API_BASE}/auth/user`, {
-    method: "GET",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: getCookie("accessToken") ?? "",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  })
-  .then(checkResponse)
-}
+// export const getUserData = async () => {
+//   return fetchWithRefresh(`${API_BASE}/auth/user`, {
+//     method: "GET",
+//     mode: "cors",
+//     cache: "no-cache",
+//     credentials: "same-origin",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: getCookie("accessToken") ?? "",
+//     },
+//     redirect: "follow",
+//     referrerPolicy: "no-referrer",
+//   })
+//   .then(checkResponse)
+// }
 
 // логирование пользователя
-export const login = async({ email, password }) => {
+export const login = async({ email, password }: Pick<TRegister, "email" | "password">): Promise<TLogin> => {
   return await fetch(`${API_BASE}/auth/login`, {
     method: "POST",
     body: JSON.stringify({
@@ -89,11 +104,7 @@ export const login = async({ email, password }) => {
       "Content-Type": "application/json",
     },
   })
-  .then(checkResponse).then(res => {
-      // let authToken;
-      // if (res.accessToken.indexOf('Bearer') === 0) {
-      //   authToken = res.accessToken.split('Bearer ')[1];
-      // }
+  .then(checkResponse<TLogin>).then(res => {
       localStorage.setItem("refreshToken", res.refreshToken);
       localStorage.setItem("accessToken", res.accessToken);
     return res
@@ -101,7 +112,7 @@ export const login = async({ email, password }) => {
 }
 
 // получение данных пользователя не работает fetchWithRefresh
-export const getUser = async () => {
+export const getUser = async (): Promise<TGetUserRes> => {
       return await fetch(`${API_BASE}/auth/user`, {
           method: "GET",
           mode: "cors",
@@ -109,15 +120,16 @@ export const getUser = async () => {
           credentials: "same-origin",
           headers: {
               "Content-Type": "application/json",
-              Authorization: localStorage.getItem("accessToken"),
+               Authorization: localStorage.getItem("accessToken")!,
           },
-      }).then(checkResponse).then( res => {
+      }).then(checkResponse<TGetUserRes>).then( res => {
+        console.log(res)
         return res;
       });
 };
 
 // обновление пользовательских данных
-export const patchUserData = async (userUpdateInput) => {
+export const patchUserData = async (userUpdateInput: TRegister): Promise<TRegister> => {
   console.log(userUpdateInput)
   return fetch(`${API_BASE}/auth/user`, {
     method: "PATCH",
@@ -126,20 +138,20 @@ export const patchUserData = async (userUpdateInput) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
+       Authorization: localStorage.getItem("accessToken")!
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
     body: JSON.stringify(userUpdateInput),
   })
-  .then(checkResponse).then(res => {
+  .then(checkResponse<TRegister>).then(res => {
       console.log(res)
     return res
   })
 }
 
 // выход пользователя
-export const logout = () => {
+export const logout = (): Promise<TForgotPassRes> => {
   return fetch(`${API_BASE}/auth/logout`, {
     method: "POST",
     body: JSON.stringify({
@@ -148,14 +160,18 @@ export const logout = () => {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(checkResponse).then(res => {
+  }).then(checkResponse<TForgotPassRes>).then(res => {
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("accessToken");
       return res;
   })
 }
 
-export const resetPass = ({password, token}) => {
+type TResetPass = {
+    password: string
+    token: string
+}
+export const resetPass = ({password, token}: TResetPass): Promise<TResetPass> => {
   return fetch(`${API_BASE}/password-reset/reset`, {
     method: "POST",
     body: JSON.stringify({
@@ -166,7 +182,7 @@ export const resetPass = ({password, token}) => {
       "Content-Type": "application/json",
     }
   })
-    .then(checkResponse).then(res => {
+    .then(checkResponse<TResetPass>).then(res => {
       console.log(res)
       return res
     })

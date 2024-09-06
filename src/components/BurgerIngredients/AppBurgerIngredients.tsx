@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, SyntheticEvent, useMemo} from 'react';
 import burgerIngredientsStyle from './burgerIngredients.module.css';
 import Menu from '../BurgerIngridientMenu/BurgerIngridientMenu';
 import Ingridients from '../Ingridients/Ingredient';
@@ -8,12 +8,14 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../Ingridients/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentIngridient } from '../../services/slices/viewedIngridient';
+import { useAppSelector, useAppDispatch } from '../../services/store';
+import { IIngredient, INGREDIENT_TYPES } from "../../types/types";
 
-function BurgerIngredients() {
+function BurgerIngredients(): React.JSX.Element {
     const [current, setCurrent] = useState("buns");
     const [isModal, setIsModal] = useState(false);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     // тестовый вариант
     // const { 
     //     ingridients,
@@ -29,28 +31,38 @@ function BurgerIngredients() {
         ingridients,
         isLoading,
         error
-    } = useSelector( (state) => 
+    } = useAppSelector( (state) => 
         state.ingridients
     )
+    // закоментировано
+    // const someBuns = !isLoading && ingridients.filter( (el: IIngredient ) => el.type === 'bun')
+    // const someSauces = !isLoading && ingridients.filter( (el: IIngredient) => el.type === 'sauce')
+    // const someMains = !isLoading && ingridients.filter( (el: IIngredient) => el.type === 'main')
 
-    const someBuns = !isLoading && ingridients.filter( (el) => el.type === 'bun')
-    const someSauces = !isLoading && ingridients.filter( (el) => el.type === 'sauce')
-    const someMains = !isLoading && ingridients.filter( (el) => el.type === 'main')
-   
-    const openModal = (ingridient) => {
+    const someBuns = useMemo<Array<IIngredient>>(() => {
+        return ingridients?.filter((el: IIngredient ) => el.type === INGREDIENT_TYPES.bun);
+    }, [ingridients]);
+    const someSauces = useMemo<Array<IIngredient>>(() => {
+        return ingridients?.filter((el: IIngredient ) => el.type === INGREDIENT_TYPES.sauce);
+    }, [ingridients]);
+    const someMains = useMemo<Array<IIngredient>>(() => {
+        return ingridients?.filter((el: IIngredient ) => el.type === INGREDIENT_TYPES.main);
+    }, [ingridients]);
+
+    const openModal = (ingridient: IIngredient) => {
         setIsModal(true)
         dispatch(currentIngridient(ingridient))
     }
 
-    const closeModal = () => {
-        setIsModal(false)
-    }
+    // const closeModal = () => {
+    //     setIsModal(false)
+    // }
 
-    const burgerIngredientsContainerRef = useRef(null);
-    const bunsHeaderRef = useRef(null);
-    const sauceHeaderRef = useRef(null);
-    const fillingsHeaderRef = useRef(null);
-    const handleScroll = (e) => {
+    const burgerIngredientsContainerRef = useRef<HTMLElement>(null);
+    const bunsHeaderRef = useRef<HTMLHeadingElement>(null);
+    const sauceHeaderRef = useRef<HTMLHeadingElement>(null);
+    const fillingsHeaderRef = useRef<HTMLHeadingElement>(null);
+    const handleScroll = (e: SyntheticEvent) => {
         const containerPos =
             burgerIngredientsContainerRef.current?.getBoundingClientRect();
         const bunsHeaderPos = bunsHeaderRef.current?.getBoundingClientRect();
@@ -103,21 +115,21 @@ function BurgerIngredients() {
                                 {isLoading && 'Загрузка...'}
                                 {error && 'Произошла ошибка'}
                                 {!isLoading &&   
-                                    someBuns.map((component) => <Ingridients key={component._id} data={component} onClick={openModal}/>)}
+                                    someBuns.map((component: IIngredient) => <Ingridients key={component._id} data={component} onClick={() => openModal}/>)}
                             </div>
                             <div className={burgerIngredientsStyle.titleText} ref={sauceHeaderRef}>Соусы</div>
                             <div className={burgerIngredientsStyle.row} id='sauces'>
                                 {isLoading && 'Загрузка...'}
                                 {error && 'Произошла ошибка'}
                                 {!isLoading &&   
-                                    someSauces.map((component) => <Ingridients key={component._id} data={component} onClick={openModal}/>)}
+                                    someSauces.map((component: IIngredient) => <Ingridients key={component._id} data={component} onClick={() => openModal}/>)}
                             </div>
                             <div className={burgerIngredientsStyle.titleText} ref={fillingsHeaderRef}>Начинки</div>
                             <div className={burgerIngredientsStyle.row} id='fillings'>
                                 {isLoading && 'Загрузка...'}
                                 {error && 'Произошла ошибка'}
                                 {!isLoading &&   
-                                    someMains.map((component) => <Ingridients key={component._id} data={component} onClick={openModal}/>)}
+                                    someMains.map((component: IIngredient) => <Ingridients key={component._id} data={component} onClick={() => openModal}/>)}
                             </div>
                         </div>
                     </section>)}
@@ -126,7 +138,7 @@ function BurgerIngredients() {
     )
 }
 
-BurgerIngredients.propTypes = {
+// BurgerIngredients.propTypes = {
     // data: PropTypes.shape({
     //     isLoading: PropTypes.bool,
     //     data: PropTypes.arrayOf( ingridientPropTypes.isRequired)
@@ -134,6 +146,6 @@ BurgerIngredients.propTypes = {
 
     // isLoading: PropTypes.bool.isRequired,
     // error: PropTypes.string.isRequired
-}
+// }
 
 export default BurgerIngredients
