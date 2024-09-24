@@ -21,6 +21,7 @@ const Order = () => {
 
     const navigate = useNavigate()
     const user = useAppSelector( (state) => state.form.userInfo);
+
     const openModal = () => {
         if(!user) {
             navigate('/login')
@@ -33,13 +34,14 @@ const Order = () => {
     const closeModal = () => {
         setIsOpen(!isOpen);
     }
-    // @ts-ignore
-    const constructorIngridients = useSelector( state => state.constructorIngridients.constructorIngridient)
+
+    const constructorIngridients = useAppSelector( state => state.constructorIngridients.constructorIngridient)
     // const constructorIngridients = useAppSelector( state => state.constructorIngridients.constructorIngridient)
     const checkout = async () => {
         const ingridients_Id = constructorIngridients.ingridients.map( (value: IIngredient) => {
             return value._id
         })
+
         // переделать под чистую функцию!!!
         if(constructorIngridients.bun.length > 0) {
             constructorIngridients.bun.map( (ingridient: IIngredient) => {
@@ -47,9 +49,8 @@ const Order = () => {
             })
             // ingridients_Id.push(constructorIngridients.bun?._id)
         }
-        
+
         if (ingridients_Id.length > 0) {
-            // @ts-ignore
            dispatch(postOrder(ingridients_Id));
         }
 

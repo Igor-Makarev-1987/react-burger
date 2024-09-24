@@ -25,7 +25,6 @@ import {
         return;
       }
 
-      // @ts-ignore
       dispatch(forgotPassword(email));
       navigate("/reset-password", { state: { from: location } });
     };

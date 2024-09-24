@@ -5,7 +5,7 @@ const initialState = {
     ingridients: [],
     orderId: [],
     isLoading: false,
-    error: null
+    error: ""
 }
 
 const checkout = createSlice({
@@ -23,7 +23,7 @@ const checkout = createSlice({
         })
         .addCase(postOrder.pending, (state) => {
           state.isLoading = true;
-          state.error = null;
+          state.error = "";
         })
         .addCase(postOrder.rejected, (state) => {
           state.isLoading = false;
@@ -34,7 +34,7 @@ const checkout = createSlice({
 })
 
 export const {
-    getIdIngridients,
+    // getIdIngridients,
 } = checkout.actions;
   
 export default checkout.reducer;

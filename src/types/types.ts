@@ -52,7 +52,19 @@ export interface IDragObject extends IIngredient {
 }
 
 export interface IIngredientDetail extends IIngredient {
+    id?: number
+}
+
+export interface  IIngredientResponse {
+    success: boolean;
+    data:  never[];
+}
+
+export interface IIngredientDetailResponse extends IIngredient {
     id?: number;
+    order: {
+        number: never[]
+    }
 }
 
 export interface IProps {
@@ -93,8 +105,14 @@ type TBun = {
 export type TFormValues = {
     name: string;
     email: string;
+    password?: string;
+};
+
+export type TFormInput = {
+    name: string;
+    email: string;
     password: string;
-  };
+}
 
 export type TLogin = {
     success: boolean,
@@ -106,7 +124,7 @@ export type TLogin = {
     }
 } 
 
-export type TRegisterRes = TLogin & {authToken?: string}
+export type TRegisterRes = TLogin & {authToken?: string} 
 
 export type TForgotPassRes = {
     success: boolean
@@ -116,3 +134,54 @@ export type TForgotPassRes = {
 export type TGetUserRes = Pick<TLogin, "success" | "user">
 
 export type TRefreshTokenRes = Pick<TLogin, "success" | "accessToken" | "refreshToken">
+
+export type TProfilePageProps= {
+    activeTab: string
+}
+
+export type TFeed = {
+    success: boolean;
+    orders: TFeedOrder[];
+    total: number;
+    totalToday: number;
+};
+
+export type TFeedOrder = {
+    _id: string;
+    ingredients: string[];
+    status: string;
+    name: string;
+    createdAt: string | number | Date;
+    updatedAt: string;
+    number: number;
+};
+
+export type TFeedOrderIngridients = {
+    ingredients: string[];
+    number: number;
+    name: string;
+    status: string;
+    
+}
+
+export type TFeedOrderResponse = Pick<TFeed, "success" | "orders">;
+
+export type TSubmitOrder = {
+    ingredientIds: string
+}
+
+export type TRegister = {
+    email: string
+    name: string
+    password: string
+}
+
+export type TResetPass = {
+    password: string
+    token: string
+}
+
+export type TUser = {
+    success: boolean
+    user: TRegister
+}

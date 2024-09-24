@@ -31,7 +31,7 @@ function BurgerConstructor(): React.JSX.Element {
     const [, dropRef] = useDrop<IIngredientDetail, unknown, { handlerId: Identifier | null }>({
         accept: 'ingridient',
         drop(item) {
-          // @ts-ignore
+
           dispatch(addIngridient({...(item as object), id:uuid()}))
         } 
     })

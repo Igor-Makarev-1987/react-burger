@@ -10,8 +10,7 @@ function UpList() {
 let name = '';
 let price = 0;
 let image = '';
-// @ts-ignore
-const constructorIngridient = useSelector( state => state.constructorIngridients.constructorIngridient)
+const constructorIngridient = useAppSelector( state => state.constructorIngridients.constructorIngridient)
 // const constructorIngridient = useAppSelector( state => {
 //   return state.constructorIngridients.constructorIngridient
 // })

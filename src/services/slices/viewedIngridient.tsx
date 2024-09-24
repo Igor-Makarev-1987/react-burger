@@ -1,7 +1,12 @@
 import {createSlice } from "@reduxjs/toolkit";
+import { IIngredient } from "../../types/types";
 
-const initialState = {
-    currentIngridient: {}
+type TCurrentIngridient = {
+    currentIngridient: IIngredient | null
+}
+
+const initialState: TCurrentIngridient = {
+    currentIngridient: null
 }
 
 const viewedIngridient = createSlice({

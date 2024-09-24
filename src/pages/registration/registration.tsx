@@ -16,11 +16,10 @@
     const [password, setPassword] = useState("");
     const [isPasswordShown, setIsPasswordShown] = useState(false);
     const navigate = useNavigate()
-    // @ts-ignore
-    const user = useSelector((state) => state.form.userInfo);
+    const user = useAppSelector((state) => state.form.userInfo);
     // const isUserRegistered = useSelector( (state) => state.auth);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
       if (user) {
         navigate( '/' );
@@ -29,7 +28,6 @@
   
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      // @ts-ignore
       dispatch(registerUser({ email, password, name}));
     };
   

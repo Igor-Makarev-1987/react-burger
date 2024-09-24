@@ -1,7 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, getUserParam, setUserData, logoutUser, resetPassword, forgotPassword } from "../actions/formAction";
+import { TFormValues } from "../../types/types";
 
-const initialState = {
+type TFormState = {
+    resetFormFailed: boolean;
+    resetFormSuccess: boolean;
+    updateFormFailed: boolean;
+    updateFormSuccess: boolean;
+    registerFormSuccess: boolean;
+    registerFormFailed: boolean;
+    loginFormSuccess: boolean;
+    loginFormFailed: boolean;
+    userInfo: null |TFormValues;
+    userInfoFailed: boolean;
+    userInfoSuccess: boolean;
+    isAuthChecked: boolean;
+    logoutFormSuccess: boolean;
+    logoutFormFailed: boolean;
+    isForgotPassword: boolean
+    error: string
+  };
+
+const initialState: TFormState = {
     resetFormFailed: false,
     resetFormSuccess: false,
     updateFormFailed: false,
@@ -17,6 +37,7 @@ const initialState = {
     logoutFormSuccess: false,
     logoutFormFailed: false,
     isForgotPassword: false,
+    error: ''
 };
 
 const formSlice = createSlice({
@@ -24,7 +45,6 @@ const formSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state,action) => {
-            // console.log(action.payload)
             state.userInfo = action.payload
         },
         setIsAuthChecked: (state, action) => {
@@ -34,7 +54,6 @@ const formSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(userLogin.fulfilled, (state, action) => {
-                // console.log(state)
                 // console.log(action.payload.user)
                 state.userInfo = action.payload.user
                 state.isAuthChecked = true

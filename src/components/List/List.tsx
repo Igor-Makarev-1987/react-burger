@@ -59,7 +59,7 @@ const List = ({data, orderIndex}: TList): React.JSX.Element => {
     dragRef(drop(ref));
 
     const handleIngredientRemoval = (id: number | undefined) => () => {
-      console.log(id)
+      // console.log(id)
         dispatch(deleteIngridients(id));
     };
     return (

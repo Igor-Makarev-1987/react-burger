@@ -10,25 +10,31 @@ export const refreshToken = () => {
         body: JSON.stringify({
             token: localStorage.getItem("refreshToken"),
         }),
-    }).then(res => checkResponse(res));
+    });
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async <T>(url: string, options: RequestInit | undefined): Promise<T> => {
     try {
         const res = await fetch(url, options);
-        // console.log(res)
-        return await checkResponse(res);
-    } catch (err) {
+        return await checkResponse<T>(res);
+    } catch (err: any) {
         if (err.message === "jwt expired") {
             const refreshData = await refreshToken(); //обновляем токен
-            if (!refreshData.success) {
+            const json = await refreshData.json()
+            if (!refreshData.ok) {
                 return Promise.reject(refreshData);
             }
-            localStorage.setItem("refreshToken", refreshData.refreshToken);
-            localStorage.setItem("accessToken", refreshData.accessToken);
-            options.headers.Authorization = refreshData.accessToken;
+            localStorage.setItem("refreshToken", json.refreshToken);
+            localStorage.setItem("accessToken", json.accessToken);
+
+            const optionsUnified = options || { method: "GET", headers: {} };
+                optionsUnified.headers = {
+                ...optionsUnified.headers,
+                Authorization: json.accessToken,
+                };
+
             const res = await fetch(url, options); //повторяем запрос
-            return await checkResponse(res);
+            return checkResponse<T>(res);
         } else {
             return Promise.reject(err);
         }

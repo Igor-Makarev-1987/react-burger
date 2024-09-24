@@ -30,13 +30,11 @@ const Ingridient = ({data, onClick}: IIngredienttype): React.JSX.Element => {
         })
     })
     const location = useLocation();
-
     useEffect( () => {
         dispatch( changeDraggingIngredientState(isDrag) )
       }, [dispatch, isDrag])
 
     const handleClick = () => {
-        // console.log(data)
         onClick() // data
     }
 
