@@ -5,7 +5,6 @@
   import React, { useEffect, useState, SyntheticEvent, FormEvent } from "react";
   import registrationStyle from "./registration.module.css";
   import { Link, useNavigate } from "react-router-dom";
-  import { useDispatch, useSelector } from "react-redux";
   import { useAppDispatch, useAppSelector } from "../../services/store";
   import { registerUser } from "../../services/actions/registerAction";
 

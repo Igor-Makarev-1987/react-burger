@@ -5,7 +5,6 @@ import { Link, replace, useNavigate } from "react-router-dom";
 import { ProfileInputs } from "../../components/ProfileInput/ProfileInput";
 import { logoutUser } from "../../services/actions/logoutUserAction";
 import profileStyle from "./profile.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { getUserParam } from "../../services/actions/formAction";
 import { setUserData } from "../../services/actions/formAction";
 import { useAppSelector, useAppDispatch } from "../../services/store";

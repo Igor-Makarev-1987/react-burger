@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import BurgerOrderList from "../../components/BurgerOrderList/BurgerOrderList";
 import feedStyles from "./feed.module.css";
 import { OrderReport } from "../../components/OrderReport/OrderReport";
-import { useSelector, useDispatch } from "react-redux";
 // import { FEED_CONNECT, FEED_DISCONNECT } from "../../services/constants";
 import { WS_SOCKET, WS_SOCKET_USER } from '../../utils/const';
 import { wsConnect, wsDisconnect } from '../../services/actions/listOrdersAction';

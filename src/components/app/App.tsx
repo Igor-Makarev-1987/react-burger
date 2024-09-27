@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import AppHeader from '../Header/AppHeader';
-import { useDispatch, useSelector } from 'react-redux';
 import {BrowserRouter as Router, Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import HomePage from "../../pages/home/home";
 import LoginPage from '../../pages/login/login';

@@ -1,6 +1,5 @@
 import React, { useState, FormEvent} from 'react';
 import loginStyle from './login.module.css';
-import { useDispatch } from 'react-redux';
 import {
     Button,
     Input,

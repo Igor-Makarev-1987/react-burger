@@ -1,7 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postOrder } from "../actions/orderAction"
+import { IIngredient } from "../../types/types";
 
-const initialState = {
+type TOrder = {
+  ingridients: IIngredient[],
+  orderId: string[],
+  isLoading: boolean,
+  error: string
+}
+
+const initialState: TOrder = {
     ingridients: [],
     orderId: [],
     isLoading: false,

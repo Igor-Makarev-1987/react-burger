@@ -1,4 +1,4 @@
-import {configureStore, combineReducers} from "@reduxjs/toolkit";
+import {configureStore, combineReducers, combineSlices} from "@reduxjs/toolkit";
 // import logger from 'redux-logger'
 import { applyMiddleware } from "redux";
 import ingridientsReducer  from './slices/ingridientsSlice';
@@ -13,14 +13,25 @@ import { TypedUseSelectorHook,
 } from 'react-redux'
 import listOrdersReducer, { wsClose, wsConnecting, wsError, wsMessage, wsOpen }  from './slices/listOrdersSlice'
 import userOrdersReducer, { wsCloseUser, wsConnectingUser, wsErrorUser, wsMessageUser, wsOpenUser }  from './slices/userOrdersSlice'
-import { socketMiddleware, TWsActionTypes } from "./middleware/socketMiddleware";
+import { socketMiddleware } from "./middleware/socketMiddleware";
 import { ListOrdersActions } from "../types/socket";
 import { wsConnect, wsDisconnect } from "./actions/listOrdersAction";
 import { wsConnectUser, wsDisconnectUser } from "./actions/userOrdersAction";
+import { TFeedStoreActions, paramsActions, TFeedOrder, TConstructorIngridients, TIngridients, listOrders, TOrder, TCurrentIngridient, TFormState, ICurrentIrder } from "../types/types";
+
+const rootReducer = combineReducers({
+    ingridients: ingridientsReducer,
+    constructorIngridients: constructorIngridientsReducer,
+    checkout: checkoutReducer,
+    viewedIngridient: viewedIngridientReducer,
+    form: formReducer,
+    listOrders: currentOrderReducer,
+    listOrderss: listOrdersReducer,
+    userOrders: userOrdersReducer
+})
 
 const preloadedState = {};
-// проверка типа
-const listOrdersMiddleware: any = socketMiddleware({
+const listOrdersMiddleware = socketMiddleware<unknown, paramsActions>({
     connect: wsConnect,
     disconnect: wsDisconnect,
     onConnecting: wsConnecting,
@@ -30,7 +41,7 @@ const listOrdersMiddleware: any = socketMiddleware({
     onMessage: wsMessage
 })
 
-const userOrdersMiddleware: any = socketMiddleware({
+const userOrdersMiddleware = socketMiddleware<unknown, paramsActions>({
     connect: wsConnectUser,
     disconnect: wsDisconnectUser,
     onConnecting: wsConnectingUser,
@@ -41,19 +52,20 @@ const userOrdersMiddleware: any = socketMiddleware({
 }, true)
 
 export const store = configureStore({
-    reducer: {
-        ingridients: ingridientsReducer,
-        constructorIngridients: constructorIngridientsReducer,
-        checkout: checkoutReducer,
-        viewedIngridient: viewedIngridientReducer,
-        // auth: authReducer,
-        // user: userReducer,
-        form: formReducer,
-        listOrders: currentOrderReducer,
-        listOrderss: listOrdersReducer,
-        userOrders: userOrdersReducer
-        // profile: profileReducer
-    },
+    reducer: rootReducer,
+    // {
+    //     ingridients: ingridientsReducer,
+    //     constructorIngridients: constructorIngridientsReducer,
+    //     checkout: checkoutReducer,
+    //     viewedIngridient: viewedIngridientReducer,
+    //     // auth: authReducer,
+    //     // user: userReducer,
+    //     form: formReducer,
+    //     listOrders: currentOrderReducer,
+    //     listOrderss: listOrdersReducer,
+    //     userOrders: userOrdersReducer
+    //     // profile: profileReducer
+    // },
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
     // devTools: process.env.NODE_ENV !== 'production',
     middleware: (getDefaultMiddleware) => {
@@ -65,7 +77,7 @@ export const store = configureStore({
 // export type RootState = ReturnType<typeof rootReducer>;
 
 // для типизации useSelect и useDispatch
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch
 
 // типизация 

@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import upListStyle from './upList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { IConstructorIngridient } from "../../types/types";

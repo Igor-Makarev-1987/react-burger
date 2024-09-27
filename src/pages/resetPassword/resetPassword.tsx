@@ -6,7 +6,6 @@ import {
   import resetPasswordStyle from "./resetPassword.module.css";
   import { Link, useNavigate , useLocation} from "react-router-dom";
   import { useAppSelector, useAppDispatch } from "../../services/store";
-  import { useDispatch, useSelector } from "react-redux";
   import { resetPassword } from "../../services/actions/formAction";
   import { TFormInput } from "../../types/types";
 

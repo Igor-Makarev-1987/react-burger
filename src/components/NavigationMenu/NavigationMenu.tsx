@@ -1,7 +1,6 @@
 import React from "react";
 import navigationMenuStyle from "./navigationMenu.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux"
 import { useAppDispatch } from "../../services/store";
 import { logoutUser } from "../../services/actions/logoutUserAction";
 

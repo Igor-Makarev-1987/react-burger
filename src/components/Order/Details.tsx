@@ -8,7 +8,6 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../Modal/ModalOverlay';
 import OrderDetails from './OrderDetails';
-import { useDispatch, useSelector } from 'react-redux';
 import { postOrder } from '../../services/actions/orderAction';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../services/store';

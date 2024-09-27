@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from "../../services/store";
 import { getOrders } from "../../services/actions/orderListAction";
 
 const OrderCardPage = (): React.JSX.Element => {
-    const { id }: any = useParams();
+    const { id }= useParams<{id: string}>();
     const dispatch = useAppDispatch();
     // const listOrders = useAppSelector(store => store.listOrderss);
     // const orderPage = (listOrders && id) && listOrders.orders.find( (item: TFeedOrder) => {

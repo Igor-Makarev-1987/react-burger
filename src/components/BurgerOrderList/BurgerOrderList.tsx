@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 // import BurgerOrder from "./burger-order/burger-order";
 import burgerOrderListStyles from "./burgerOrderList.module.css";
-import { useDispatch, UseSelector } from "react-redux";
 import { TFeedOrder } from "../../types/types";
 import BurgerOrderCard from "../BurgerOrderCard/BurgerOrderCard";
-// import { getCurrentOrder } from "../../services/actions/currentOrderAction";
 
 type TProps = {
     orders: TFeedOrder[];

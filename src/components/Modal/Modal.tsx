@@ -3,7 +3,6 @@ import ModalOverlay from './ModalOverlay';
 import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import modalStyle from '../Modal/modal.module.css';
-import { useSelector } from 'react-redux';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const modalRoot = document.querySelector('#modals');

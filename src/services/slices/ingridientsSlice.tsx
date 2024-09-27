@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadAllIngredients } from "../actions/ingridientAction";
-// import { getIngridients } from "../actions/ingridientsAction";
-// import { RootState } from "../store";
+import { IIngredient } from "../../types/types";
 
-const initialState = {
+type TIngridients = {
+    ingridients: IIngredient[],
+    isLoading: boolean,
+    error: string,
+}
+
+
+const initialState: TIngridients = {
     ingridients: [],
     isLoading: false,
     error: "",

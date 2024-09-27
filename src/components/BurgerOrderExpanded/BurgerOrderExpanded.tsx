@@ -1,10 +1,8 @@
 import burdgerOrderExpendedStyles from "./burgerOrderExpanded.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-// import { useSelector } from "../../hooks/hooks";
-import { TFeedOrder, IIngredient } from "../../types/types";
+import { TFeedOrder, IIngredient, TFeedOrderCurrentOpened } from "../../types/types";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { addIngredients } from "../../utils/addIngridient";
-import { useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from '../../services/store';
 
@@ -16,17 +14,15 @@ type TBurgerOrderParams = {
     _id: string
 }
 
-const BurgerCardExpanded = (props: { order: [] | TFeedOrder[]}): React.JSX.Element => {
+const BurgerCardExpanded = (props: { order: [] | TFeedOrder[]}): React.JSX.Element | null => {
     // new code
     const listOrders = useAppSelector(store => store.listOrderss);
-    const { id }: any = useParams();
-    const currentOpened: any = props.order && id ? props.order.find( (item: TFeedOrder) => {
-        return item.number == id
-    }) : {} 
-
+    const { id } = useParams<{id: string}>()
+    const  currentOpened  = props.order && id ? props.order.find( (item: TFeedOrder) => item.number ===  Number(id) ) : null
     const ingridientsData = useAppSelector(store => store.ingridients.ingridients);
     const orderIngredients = (currentOpened && ingridientsData) && addIngredients<IIngredient, string>(ingridientsData, currentOpened?.ingredients);
-    const totalPrice = orderIngredients && orderIngredients.reduce(
+    
+    const totalPrice: number | null | undefined  = orderIngredients && orderIngredients.reduce(
         (acc: number, ingridient: IIngredient) => {
             let total = 0;
             if(ingridient.type === 'bun') {
@@ -41,7 +37,7 @@ const BurgerCardExpanded = (props: { order: [] | TFeedOrder[]}): React.JSX.Eleme
 
     const accObject: Record<string, number> = {};
 
-    currentOpened?.ingredients.forEach((item: any) => {
+    currentOpened?.ingredients.forEach((item: string) => {
         if (accObject[item] === undefined) {
             accObject[item] = 1;
         } else {
@@ -51,13 +47,11 @@ const BurgerCardExpanded = (props: { order: [] | TFeedOrder[]}): React.JSX.Eleme
 
     const set = [...new Set<IIngredient>(orderIngredients)];
 
-    const generateMarkup = (element: any, totalPrice: number)  => {
+    const generateMarkup = (element: TFeedOrder, totalPrice: number | null | undefined)  => {
         const {
             name,
             number,
             createdAt,
-            proteins,
-            fat
         } = element;
 
         return (

@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import downListStyle from './downList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppSelector } from '../../services/store';

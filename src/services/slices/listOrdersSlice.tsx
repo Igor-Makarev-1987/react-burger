@@ -8,7 +8,6 @@ type listOrders = {
     total: number
     totalToday: number
     connectionError: string | null
-    test: any
 }
 
 const initialState: listOrders = {
@@ -18,7 +17,6 @@ const initialState: listOrders = {
     total: 0,
     totalToday: 0,
     connectionError: null,
-    test: []
 }
 
 const listOrdersSlice = createSlice({
@@ -38,8 +36,7 @@ const listOrdersSlice = createSlice({
             state.connectionError = action.payload
         },
         wsMessage: (state, action ) => {
-            console.log(action.payload)
-            state.test = action.payload
+            // console.log(action.payload)
             state.orders = action.payload.orders
             state.success = action.payload.success
             state.total = action.payload.total

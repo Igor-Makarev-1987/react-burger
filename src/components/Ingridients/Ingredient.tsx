@@ -4,7 +4,6 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 import PropTypes from 'prop-types';
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from 'react-redux';
 import {changeDraggingIngredientState} from '../../services/slices/constructorIngridientsSlice';
 import { useLocation, Link  } from 'react-router-dom';
 import { useAppSelector,  useAppDispatch } from "../../services/store";

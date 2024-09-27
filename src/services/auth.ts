@@ -1,6 +1,10 @@
 import { checkResponse } from "../utils/checkResponse";
 import { API_BASE } from "../utils/const";
 
+type TError = {
+    message: string
+}
+
 export const refreshToken = () => {
     return fetch(`${API_BASE}/auth/token`, {
         method: "POST",
@@ -17,8 +21,8 @@ export const fetchWithRefresh = async <T>(url: string, options: RequestInit | un
     try {
         const res = await fetch(url, options);
         return await checkResponse<T>(res);
-    } catch (err: any) {
-        if (err.message === "jwt expired") {
+    } catch (err: unknown) {
+        if ((err as Error).message === "jwt expired") {
             const refreshData = await refreshToken(); //обновляем токен
             const json = await refreshData.json()
             if (!refreshData.ok) {

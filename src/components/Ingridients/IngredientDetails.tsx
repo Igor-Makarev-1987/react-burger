@@ -2,7 +2,6 @@ import {useEffect} from "react"
 import modalStyle from '../Modal/modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from "../../services/store"; 
 import { IIngredient } from "../../types/types";

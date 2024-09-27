@@ -1,7 +1,6 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burgerOrderCard.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import { TFeedOrder, IIngredient} from "../../types/types";
 import { addIngredients } from "../../utils/addIngridient";
 import { useAppDispatch, useAppSelector } from '../../services/store';

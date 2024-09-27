@@ -1,5 +1,6 @@
 import Ingridient from "../components/Ingridients/Ingredient";
 import constructorIngridientsSlice from "../services/slices/constructorIngridientsSlice";
+// import TConstructorIngridients from "../services/slices/constructorIngridientsSlice";
 
 export enum INGREDIENT_TYPES {
     bun = "bun",
@@ -185,3 +186,99 @@ export type TUser = {
     success: boolean
     user: TRegister
 }
+
+export type TFeedOrderCurrentOpened = {
+    currentOpened : TFeedOrder | undefined | null
+}
+
+export type TIngridients = {
+    ingridients: IIngredient[],
+    isLoading: boolean,
+    error: string,
+}
+
+// ingridients: TIngridients;
+// constructorIngridients: TConstructorIngridients;
+// ... 5 more ...;
+// userOrders: listOrders;
+
+export type TFeedStoreActions = {
+    onInit: string;
+    onOpen: string;
+    onClose: string;
+    onError: string;
+    onMessage: string;
+    onDisconnect: string;
+};
+
+export type TFeedOrderStoreActions = {
+    onInit: string;
+    onOpen: string;
+    onClose: string;
+    onError: string;
+    onMessage: string;
+    onDisconnect: string;
+};
+
+export type TConstructorIngredient = IIngredient & { key: string; id?: string };
+export type TConstructorIngredientValues = IIngredient & { id: number };
+
+export type TConstructorIngridients = {
+    constructorIngridient: {
+        bun: TConstructorIngredientValues[]
+        ingridients: TConstructorIngredientValues[]
+    }
+
+    isLoading: boolean;
+    isIngredientDragged: boolean
+    error: null | string
+};
+
+export type listOrders = {
+    status: string
+    success: boolean
+    orders: TFeedOrder[] | []
+    total: number
+    totalToday: number
+    connectionError: string | null
+}
+
+export type TOrder = {
+    ingridients: IIngredient[],
+    orderId: string[],
+    isLoading: boolean,
+    error: string
+}
+
+export type TCurrentIngridient = {
+    currentIngridient: IIngredient | null
+}
+
+export type ICurrentIrder = {
+    isLoadingCurrentOrder: boolean,
+    errorCurrentOrder: null | string,
+    currentOrder: TFeedOrder[]
+}
+
+export type TFormState = {
+    resetFormFailed: boolean;
+    resetFormSuccess: boolean;
+    updateFormFailed: boolean;
+    updateFormSuccess: boolean;
+    registerFormSuccess: boolean;
+    registerFormFailed: boolean;
+    loginFormSuccess: boolean;
+    loginFormFailed: boolean;
+    userInfo: null |TFormValues;
+    userInfoFailed: boolean;
+    userInfoSuccess: boolean;
+    isAuthChecked: boolean;
+    logoutFormSuccess: boolean;
+    logoutFormFailed: boolean;
+    isForgotPassword: boolean
+    error: string
+  };
+
+export type paramsAction = TConstructorIngridients | TIngridients | listOrders | TOrder | TCurrentIngridient | TFormState | ICurrentIrder;
+
+export type paramsActions = Array<paramsAction>;

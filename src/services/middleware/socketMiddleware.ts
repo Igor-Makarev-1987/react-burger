@@ -4,18 +4,18 @@ import { refreshToken } from "../auth";
 import { checkResponse } from "../../utils/checkResponse";
 
 
-export type TWsActionTypes = {
+export type TWsActionTypes<S, R> = {
     connect: ActionCreatorWithPayload<string>;
     disconnect: ActionCreatorWithoutPayload;
-    sendMessage?: ActionCreatorWithPayload<any>;
+    sendMessage?: ActionCreatorWithPayload<S>;
     onConnecting?: ActionCreatorWithoutPayload;
     onOpen: ActionCreatorWithoutPayload;
     onClose: ActionCreatorWithoutPayload;
     onError: ActionCreatorWithPayload<string>;
-    onMessage: ActionCreatorWithPayload<any>;
+    onMessage: ActionCreatorWithPayload<R>;
 }
 
-export const socketMiddleware = (wsActions: TWsActionTypes, withTokenRefresh: boolean = false): Middleware<{}, RootState> => {
+export const socketMiddleware = <S, R>(wsActions: TWsActionTypes<S, R>, withTokenRefresh: boolean = false): Middleware<{}, RootState> => {
     return store => {
         let socket: WebSocket | null = null;
 

@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../Ingridients/IngredientDetails';
-import { useDispatch, useSelector } from 'react-redux';
 import { currentIngridient } from '../../services/slices/viewedIngridient';
 import { useAppSelector, useAppDispatch } from '../../services/store';
 import { IIngredient, INGREDIENT_TYPES } from "../../types/types";

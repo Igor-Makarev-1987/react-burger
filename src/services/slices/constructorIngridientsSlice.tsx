@@ -2,10 +2,10 @@ import {createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from 'uuid';
 import { IIngredient, IIngredientDetail } from "../../types/types";
 
-export type TConstructorIngredient = IIngredient & { key: string; id?: any };
-type TConstructorIngredientValues = IIngredient & { id: number };
+export type TConstructorIngredient = IIngredient & { key: string; id?: string };
+export type TConstructorIngredientValues = IIngredient & { id: number };
 
-type TConstructorIngridients = {
+export type TConstructorIngridients = {
     constructorIngridient: {
         bun: TConstructorIngredientValues[]
         ingridients: TConstructorIngredientValues[]
@@ -14,7 +14,7 @@ type TConstructorIngridients = {
     isLoading: boolean;
     isIngredientDragged: boolean
     error: null | string
-  };
+};
 
 const initialState: TConstructorIngridients = {
     constructorIngridient: {
