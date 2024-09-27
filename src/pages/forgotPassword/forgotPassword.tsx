@@ -5,7 +5,6 @@ import {
   import React, { useEffect, useState, SyntheticEvent } from "react";
   import forgotPasswordStyle from "./forgotPassword.module.css";
   import { Link, useLocation, useNavigate } from "react-router-dom";
-  import { useDispatch, useSelector } from "react-redux";
   import {
     forgotPassword,
   } from "../../services/actions/forgotPassAction";
@@ -25,7 +24,6 @@ import {
         return;
       }
 
-      // @ts-ignore
       dispatch(forgotPassword(email));
       navigate("/reset-password", { state: { from: location } });
     };

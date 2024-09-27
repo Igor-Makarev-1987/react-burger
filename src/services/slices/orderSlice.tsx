@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postOrder } from "../actions/orderAction"
+import { IIngredient } from "../../types/types";
 
-const initialState = {
+type TOrder = {
+  ingridients: IIngredient[],
+  orderId: string[],
+  isLoading: boolean,
+  error: string
+}
+
+const initialState: TOrder = {
     ingridients: [],
     orderId: [],
     isLoading: false,
-    error: null
+    error: ""
 }
 
 const checkout = createSlice({
@@ -23,7 +31,7 @@ const checkout = createSlice({
         })
         .addCase(postOrder.pending, (state) => {
           state.isLoading = true;
-          state.error = null;
+          state.error = "";
         })
         .addCase(postOrder.rejected, (state) => {
           state.isLoading = false;
@@ -34,7 +42,7 @@ const checkout = createSlice({
 })
 
 export const {
-    getIdIngridients,
+    // getIdIngridients,
 } = checkout.actions;
   
 export default checkout.reducer;

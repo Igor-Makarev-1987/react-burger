@@ -1,7 +1,22 @@
 import {createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from 'uuid';
+import { IIngredient, IIngredientDetail } from "../../types/types";
 
-const initialState = {
+export type TConstructorIngredient = IIngredient & { key: string; id?: string };
+export type TConstructorIngredientValues = IIngredient & { id: number };
+
+export type TConstructorIngridients = {
+    constructorIngridient: {
+        bun: TConstructorIngredientValues[]
+        ingridients: TConstructorIngredientValues[]
+    }
+
+    isLoading: boolean;
+    isIngredientDragged: boolean
+    error: null | string
+};
+
+const initialState: TConstructorIngridients = {
     constructorIngridient: {
         bun: [],
         ingridients: []
@@ -16,24 +31,17 @@ const constructorIngridients = createSlice({
     initialState,
     reducers: {
         addIngridient: (state, action) => {
-            // console.log(action.payload)
-            // console.log(state.constructorIngridient.ingridients)
-
             let newConstructorIngridients;
             if(action.payload.type === 'bun') {
-                if(state.constructorIngridient.length > 0) {
-                    newConstructorIngridients = [...state.constructorIngridient, action.payload]
+                let size = Object.keys(state.constructorIngridient).length;
+                if(size > 0) {
+                    newConstructorIngridients = [...state.constructorIngridient.bun, action.payload]
                 } else {
                     newConstructorIngridients = [ action.payload ]
                 }
 
                 state.constructorIngridient.bun = newConstructorIngridients         
             } else {
-                // state.constructorIngridient.ingridients = [
-                //     ...state.constructorIngridient.ingridients,
-                //     {...action.payload, id:uuid()}
-                // ]
-
                 state.constructorIngridient.ingridients = [
                     ...state.constructorIngridient.ingridients, action.payload
                     // {...action.payload, id:uuid()}
@@ -67,7 +75,6 @@ const constructorIngridients = createSlice({
           },
 
         deleteIngridients: (state, action) => {
-            console.log(action)
             state.constructorIngridient.ingridients.forEach( (value, index) => {
                 if(value.id === action.payload) {
                     state.constructorIngridient.ingridients =  [

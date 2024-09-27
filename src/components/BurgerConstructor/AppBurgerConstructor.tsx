@@ -6,7 +6,6 @@ import Order from '../Order/Details';
 import listStyle from '../List/list.module.css';
 import PropTypes from 'prop-types';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
-import { useDispatch, useSelector } from 'react-redux';
 import {addIngridient} from '../../services/slices/constructorIngridientsSlice';
 import {useDrop} from 'react-dnd';
 import { v4 as uuid } from 'uuid';
@@ -31,7 +30,7 @@ function BurgerConstructor(): React.JSX.Element {
     const [, dropRef] = useDrop<IIngredientDetail, unknown, { handlerId: Identifier | null }>({
         accept: 'ingridient',
         drop(item) {
-          // @ts-ignore
+
           dispatch(addIngridient({...(item as object), id:uuid()}))
         } 
     })

@@ -1,23 +1,22 @@
 import React, { useState, FormEvent} from 'react';
 import loginStyle from './login.module.css';
-import { useDispatch } from 'react-redux';
 import {
     Button,
     Input,
   } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { userLogin } from '../../services/actions/formAction';
+import { useAppDispatch } from '../../services/store';
 
 
 function LoginPage() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isPasswordShown, setIsPasswordShown] = useState(false);
    
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(userLogin({ email, password }));
     };
   

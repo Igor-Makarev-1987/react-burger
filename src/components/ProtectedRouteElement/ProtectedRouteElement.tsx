@@ -1,8 +1,12 @@
-import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../services/store";
 
-const ProtectedRoute = ({ onlyUnAuth = false, component}: any) => {
+type TProtectedRoute = {
+  onlyUnAuth: boolean;
+  component: React.JSX.Element;
+};
+
+const ProtectedRoute = ({ onlyUnAuth = false, component}: TProtectedRoute) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
@@ -37,7 +41,11 @@ const ProtectedRoute = ({ onlyUnAuth = false, component}: any) => {
   return component;
 };
 
-export const OnlyAuth = ProtectedRoute;
-export const OnlyUnAuth = ({ component }: any) => (
+type TProtectedProps = Pick<TProtectedRoute, "component">;
+
+export const OnlyAuth = ({component}: TProtectedProps) => (
+  <ProtectedRoute onlyUnAuth={false} component={component} />
+);
+export const OnlyUnAuth = ({ component }: TProtectedProps) => (
   <ProtectedRoute onlyUnAuth={true} component={component} />
 );

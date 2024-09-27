@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import upListStyle from './upList.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 // import { IConstructorIngridient } from "../../types/types";
@@ -10,8 +9,7 @@ function UpList() {
 let name = '';
 let price = 0;
 let image = '';
-// @ts-ignore
-const constructorIngridient = useSelector( state => state.constructorIngridients.constructorIngridient)
+const constructorIngridient = useAppSelector( state => state.constructorIngridients.constructorIngridient)
 // const constructorIngridient = useAppSelector( state => {
 //   return state.constructorIngridients.constructorIngridient
 // })

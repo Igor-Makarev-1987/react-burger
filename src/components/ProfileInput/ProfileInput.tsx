@@ -3,7 +3,6 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 // import { selectUserData } from "../../redux/slices/user";
 // import { useAppSelector } from "../../redux/store";
 import profileInputStyle from "./profileInput.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch } from "../../services/store"; 
 // import { Input } from "../../../src/input";
 

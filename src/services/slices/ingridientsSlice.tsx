@@ -1,12 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadAllIngredients } from "../actions/ingridientAction";
-import { getIngridients } from "../actions/ingridientsAction";
-import { RootState } from "../store";
+import { IIngredient } from "../../types/types";
 
-const initialState = {
+type TIngridients = {
+    ingridients: IIngredient[],
+    isLoading: boolean,
+    error: string,
+}
+
+
+const initialState: TIngridients = {
     ingridients: [],
     isLoading: false,
-    error: null,
+    error: "",
 }
 
 const ingridientSlice = createSlice({
@@ -21,14 +27,12 @@ const ingridientSlice = createSlice({
                 state.isLoading = false;
             }
           
-            state.error = null;
-            state.ingridients = action.payload
-              ? action.payload.data
-              : [];
+            state.error = "";
+            state.ingridients = action.payload?.data;
           })
           .addCase(loadAllIngredients.pending, (state) => {
             state.isLoading = true;
-            state.error = null
+            state.error = ""
           })
           .addCase(loadAllIngredients.rejected, (state) => {
             state.isLoading = false;

@@ -1,11 +1,22 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { checkResponse } from "../../utils/checkResponse";
-import { fetchWithRefresh } from "../auth";
+import { fetchWithRefresh, refreshToken } from "../auth";
 import  { getUser, login, patchUserData, logout, resetPass, forgotPass } from "../../utils/api"
 import { setUser, setIsAuthChecked } from "../slices/formSlice";
+import React, { SyntheticEvent } from 'react';
 
+type TRegister = {
+  email: string
+  name: string
+  password: string
+}
 
-function isJwtExpiredError(smth) {
+interface YandexCustomErrorResp {
+  message: string;
+  success: boolean;
+}
+
+function isJwtExpiredError(smth: unknown): smth is YandexCustomErrorResp {
     return (
       typeof smth === "object" &&
       smth !== null &&
@@ -16,8 +27,8 @@ function isJwtExpiredError(smth) {
 
 export const userLogin = createAsyncThunk(
     "userLogin",
-    async(email, password) => {
-        return await login(email, password) 
+    async({email, password}: Pick<TRegister, "email" | "password">) => {
+        return await login({email, password}) 
     }
 );
 
@@ -33,7 +44,6 @@ export const checkUserAuth = createAsyncThunk(
       async (_, {dispatch}) => {
         if(localStorage.getItem("accessToken")) {
             getUser().then( res => {
-                // console.log(res.user)
                 dispatch(setUser(res.user))
             })
             .catch( err => {
@@ -49,19 +59,17 @@ export const checkUserAuth = createAsyncThunk(
 
 export const setUserData = createAsyncThunk(
     "setUserData",
-    async (userInput, { rejectWithValue }) => {
-        console.log(userInput)
+    async ({userInput}:any, { rejectWithValue }) => {
         const commonPart = async () => {
-          const res = (await patchUserData(userInput));
+          const res = (await patchUserData( userInput ));
           return { ...res };
         };
         try {
           return await commonPart();
-        } catch (e) {
+        } catch (e: unknown) {
           if (isJwtExpiredError(e) && e.message.includes("expired")) {
-            const { accessToken } = await fetch(
-              localStorage.getItem("refreshToken")
-            );
+            // было { accessToken } 
+            const accessToken = await refreshToken();
             return await commonPart();
           } else {
             return rejectWithValue(e);
@@ -74,23 +82,27 @@ export const logoutUser = createAsyncThunk(
     "logoutUser",
     async () => {
         const token = localStorage.getItem("refreshToken");
-        return  await logout(token)
+        return  await logout() // token
 
     }
 );
 
+type TResetPass = {
+  password: string
+  token: string
+}
 export const resetPassword = createAsyncThunk(
     "resetPassword",
-    (form) => {
-        console.log(form)
+    (form: TResetPass) => {
+        // console.log(form)
         return  resetPass(form)
     }
 )
 
 export const forgotPassword = createAsyncThunk(
     "forgotPassword",
-    async (email) => {
-        return  await forgotPass(email)
+    async (email: string) => {
+        return  await forgotPass({email})
             .then( res => {
                 console.log(res)
                 return res

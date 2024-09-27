@@ -2,23 +2,19 @@ import {useEffect} from "react"
 import modalStyle from '../Modal/modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from "../../services/store"; 
-import { IIngredient, IIngredientDetail } from "../../types/types";
+import { IIngredient } from "../../types/types";
 
-const IngredientDetails = (): React.JSX.Element => {
-    //@ts-ignore
-    const data = useSelector( state => state.viewedIngridient.currentIngridient)
-    // console.log(data)
+const IngredientDetails = (): React.JSX.Element | null => {
+    const data = useAppSelector( state => state.viewedIngridient.currentIngridient)
     const { id } = useParams()
-    // @ts-ignore
-    const ingridients  = useSelector( (state) => state.ingridients.ingridients)
-  
+    const ingridients  = useAppSelector( (state) => state.ingridients.ingridients)
+    
     const currentIngridient = id ? ingridients.find((item: IIngredient) => {
         return item._id === id
     }) : data;
-    // console.log(currentIngridient)
+    console.log(currentIngridient)
     // проверить на тип данных
     const generateMarkup = (element: IIngredient)  => {
         const {

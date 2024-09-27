@@ -2,7 +2,6 @@ import listStyle from './list.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingridientPropTypes } from '../PropsTypes/validateIngridients';
-import { useDispatch } from 'react-redux';
 import { deleteIngridients, moveIngredients } from '../../services/slices/constructorIngridientsSlice';
 import { useRef } from 'react';
 import { useDrag, useDrop } from "react-dnd";
@@ -59,7 +58,7 @@ const List = ({data, orderIndex}: TList): React.JSX.Element => {
     dragRef(drop(ref));
 
     const handleIngredientRemoval = (id: number | undefined) => () => {
-      console.log(id)
+      // console.log(id)
         dispatch(deleteIngridients(id));
     };
     return (

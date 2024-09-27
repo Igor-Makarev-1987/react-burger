@@ -18,7 +18,7 @@ function AppHeader(): React.JSX.Element {
                         </NavLink>
                     </span>
                     <span className={`${headerStyles.vertical} ${headerStyles.typography}`}>
-                        <NavLink to="/order" className={({isActive}) => isActive ? headerStyles.active : headerStyles.nonactive}>
+                        <NavLink to="/feed" className={({isActive}) => isActive ? headerStyles.active : headerStyles.nonactive}>
                             <ListIcon type="secondary" /> <span className={`${headerStyles.pl6}`}>Лента заказов</span>
                         </NavLink>
                     </span>

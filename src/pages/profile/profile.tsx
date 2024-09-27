@@ -5,10 +5,10 @@ import { Link, replace, useNavigate } from "react-router-dom";
 import { ProfileInputs } from "../../components/ProfileInput/ProfileInput";
 import { logoutUser } from "../../services/actions/logoutUserAction";
 import profileStyle from "./profile.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { getUserParam } from "../../services/actions/formAction";
 import { setUserData } from "../../services/actions/formAction";
 import { useAppSelector, useAppDispatch } from "../../services/store";
+import NavigationMenu from "../../components/NavigationMenu/NavigationMenu";
 
 type TProfilePageProps= {
     activeTab: string
@@ -20,10 +20,9 @@ function ProfilePage({ activeTab }: TProfilePageProps) {
     const [password, setPassword] = useState("");
     const [login, setLogin] = useState("");
     const [dataIsChanged, setDataIsChanged] = useState(false);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    // @ts-ignore
-    const user = useSelector( (state) => state.form.userInfo);
+    const user = useAppSelector( (state) => state.form.userInfo);
 
     type TSetInitialState = () => void;
 
@@ -43,7 +42,6 @@ function ProfilePage({ activeTab }: TProfilePageProps) {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (dataIsChanged) {
-            // @ts-ignore
             dispatch(setUserData({
                     name,
                     email: login,
@@ -56,13 +54,11 @@ function ProfilePage({ activeTab }: TProfilePageProps) {
     };
 
     const handleLogout = () => {
-        // @ts-ignore
         dispatch(logoutUser())
         navigate('/login', {replace: true});
     };
 
     useEffect( () => {
-        // @ts-ignore
         dispatch(getUserParam())
     }, [dispatch])
 
@@ -76,7 +72,8 @@ function ProfilePage({ activeTab }: TProfilePageProps) {
     return (
            <form className={profileStyle.main} onSubmit={handleSubmit}>
                 <div className={profileStyle.main__columnsWrapper}>
-                <div className={profileStyle.main__columnLeft}>
+                    {/* убрано по причене замены на компонент */}
+                {/* <div className={profileStyle.main__columnLeft}>
                     <p
                     className={`${
                         profileStyle.main__columnLeft__text
@@ -110,7 +107,8 @@ function ProfilePage({ activeTab }: TProfilePageProps) {
                         В этом разделе вы можете изменить свои персональные данные
                     </span>
                     )}
-                </div>
+                </div> */}
+                <NavigationMenu activeTab="PROFILE"></NavigationMenu>
                 <div className={profileStyle.main__columnRight}>
                     {activeTab === PROFILE ? (
                     <>

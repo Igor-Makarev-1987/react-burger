@@ -3,7 +3,7 @@ import { submitOrder } from '../../utils/api';
 
 export const postOrder = createAsyncThunk(
     "postOrder",
-     async (ingridientIds) => {
+     async (ingridientIds: string[]) => {
         const orderId = await submitOrder(ingridientIds);
         return { orderId };
     }
