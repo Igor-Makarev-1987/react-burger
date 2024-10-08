@@ -1,3 +1,5 @@
+import testUrl from '../../src/utils/const'
+
 describe('drag and drop tests', () => {
     beforeEach(() => {
         cy.intercept("GET", "api/auth/user", {fixture: "user"})
@@ -6,7 +8,7 @@ describe('drag and drop tests', () => {
 
         localStorage.setItem("accessToken", "sdfsdfdsfdsf");
         
-        cy.visit('http://localhost:3000/');
+        cy.visit(testUrl);
       });
 
     it('should be available to drag and drop and take an order', () => {
