@@ -30,7 +30,7 @@ function BurgerConstructor(): React.JSX.Element {
     const [, dropRef] = useDrop<IIngredientDetail, unknown, { handlerId: Identifier | null }>({
         accept: 'ingridient',
         drop(item) {
-
+          console.log("ttt", item);
           dispatch(addIngridient({...(item as object), id:uuid()}))
         } 
     })
@@ -40,7 +40,7 @@ function BurgerConstructor(): React.JSX.Element {
     // const constructorIngridient = useSelector( state => state.ingridients.constructorIngridient)
 
     return (
-        <div className={burgerConstructorStyle.container} ref={dropRef}>
+        <div className={burgerConstructorStyle.container} ref={dropRef} data-cy="constructor">
             <>
                 <UpList></UpList>
                 <>

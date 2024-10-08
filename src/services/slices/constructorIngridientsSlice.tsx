@@ -16,7 +16,7 @@ export type TConstructorIngridients = {
     error: null | string
 };
 
-const initialState: TConstructorIngridients = {
+export const initialState: TConstructorIngridients = {
     constructorIngridient: {
         bun: [],
         ingridients: []
@@ -33,15 +33,16 @@ const constructorIngridients = createSlice({
         addIngridient: (state, action) => {
             let newConstructorIngridients;
             if(action.payload.type === 'bun') {
-                let size = Object.keys(state.constructorIngridient).length;
-                if(size > 0) {
-                    newConstructorIngridients = [...state.constructorIngridient.bun, action.payload]
-                } else {
+                // let size = Object.keys(state.constructorIngridient).length;
+                // if(size > 0) {
+                //     newConstructorIngridients = [...state.constructorIngridient.bun, action.payload]
+                // } else {
                     newConstructorIngridients = [ action.payload ]
-                }
+                // }
 
                 state.constructorIngridient.bun = newConstructorIngridients         
             } else {
+                // console.log(action.payload)
                 state.constructorIngridient.ingridients = [
                     ...state.constructorIngridient.ingridients, action.payload
                     // {...action.payload, id:uuid()}
@@ -54,7 +55,9 @@ const constructorIngridients = createSlice({
 
         // перетаскивание элемента
         moveIngredients: (state, action) => {
+            // console.log(action.payload)
             const dragItem = state.constructorIngridient.ingridients[action.payload.dragIndex];
+            // console.log(111)
             if (dragItem) {
               const copiedState = [...state.constructorIngridient.ingridients];
 

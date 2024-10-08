@@ -5,7 +5,7 @@ type TCurrentIngridient = {
     currentIngridient: IIngredient | null
 }
 
-const initialState: TCurrentIngridient = {
+export const initialState: TCurrentIngridient = {
     currentIngridient: null
 }
 
@@ -14,6 +14,7 @@ const viewedIngridient = createSlice({
     initialState,
     reducers: {
         currentIngridient: (state, action) => {
+            // console.log(action.payload)
             state.currentIngridient = action.payload
         }
     }

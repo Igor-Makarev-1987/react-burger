@@ -47,7 +47,7 @@ const List = ({data, orderIndex}: TList): React.JSX.Element => {
           if (dragIndex === hoverIndex) {
             return;
           }
-
+console.log(333)
           if (dragIndex !== undefined && hoverIndex !== undefined) {
             dispatch(moveIngredients({ dragIndex, hoverIndex }));
             item.orderIndex = hoverIndex;
@@ -63,7 +63,7 @@ const List = ({data, orderIndex}: TList): React.JSX.Element => {
     };
     return (
  
-        <div ref={ref} className={`${listStyle.row} ${listStyle.constructorElement}`}>
+        <div ref={ref} className={`${listStyle.row} ${listStyle.constructorElement}`} data-cy="constructor-inside">
             <span className={`${listStyle.paramsWidth} ${listStyle.cursor}`} >
                 <DragIcon type="primary" ></DragIcon>
                 <ConstructorElement
@@ -78,8 +78,8 @@ const List = ({data, orderIndex}: TList): React.JSX.Element => {
 }
 
 List.propTypes = {
-    data: ingridientPropTypes.isRequired,
-    orderIndex: PropTypes.number.isRequired,
+    // data: ingridientPropTypes.isRequired,
+    // orderIndex: PropTypes.number.isRequired,
   }
 
 export default List; 

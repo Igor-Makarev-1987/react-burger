@@ -15,7 +15,11 @@ import { IIngredientDetail,
 } from "../types/types";
 
 export const fetchIngridientsRequest = async (): Promise<IIngredientResponse> => {
-    return await fetch(`${API_BASE}/ingredients`)
+    return await fetch(`${API_BASE}/ingredients`, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
         .then(checkResponse<IIngredientResponse>)
         // .then(res => res)
 };

@@ -60,15 +60,16 @@ const Ingridient = ({data, onClick}: IIngredienttype): React.JSX.Element => {
     }, [selectedIngredients])
 
     return (
+        <>
          <Link to={`/ingredients/${data._id}`}
                state= {{ background: location }}
                key={data._id}
                className={ingridientsStyle.link}
              >  
-            <div className={ingridientsStyle.product} onClick={() => handleClick} ref={dragRef}>
-                <div className={ingridientsStyle.card}>
-                    <span className={`${ingridientsStyle.positionCount}`}>                    
-                        <div className={ingridientsStyle.count}>
+            <div className={ingridientsStyle.product}  onClick={() => handleClick} ref={dragRef} data-cy={`${data.name} title-ingridient`}>
+                <div className={ingridientsStyle.card} >
+                    <span className={`${ingridientsStyle.positionCount}`} >                    
+                        <div className={ingridientsStyle.count} data-cy={`${data.name} counter`} >
                             {count && <Counter count={count} />}
                         </div>
                     </span>
@@ -78,6 +79,7 @@ const Ingridient = ({data, onClick}: IIngredienttype): React.JSX.Element => {
                 </div>
             </div>
         </Link>
+        </>
     )
   }
 

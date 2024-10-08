@@ -97,7 +97,7 @@ function BurgerIngredients(): React.JSX.Element {
     return (
 
             <div className={burgerIngredientsStyle.container}>
-                <h3 className={`${burgerIngredientsStyle.mt4} ${burgerIngredientsStyle.title} `}>Соберите бургер</h3>
+                <h3 className={`${burgerIngredientsStyle.mt4} ${burgerIngredientsStyle.title} `} data-cy="constructor title">Соберите бургер</h3>
                 <Menu
                     current={current}
                 ></Menu>
