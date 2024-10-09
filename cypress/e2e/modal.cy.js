@@ -5,8 +5,6 @@ describe('modal window tests', function () {
         cy.get("[data-cy='title']").should("have.text", "Детали ингридиента");
         cy.get("[data-cy='ingredient title']").should("have.text", "Краторная булка N-200i");
         cy.get("[data-cy='close']").first().click();
-        // cy.get("[data-cy='close-overlay']").should("have.text", "text");
-        // cy.get("[data-cy='close-overlay']").click();
         cy.get("[data-cy='constructor title']").should("have.text", "Соберите бургер");
     })
 })
