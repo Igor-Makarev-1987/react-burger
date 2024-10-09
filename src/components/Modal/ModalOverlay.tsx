@@ -10,7 +10,7 @@ const ModalOverlay = ({onClose} : TPropsModalOverlay): React.JSX.Element => {
 
     return (
         <div className={modalOverlayStyle.container} onClick={() => onClose()}>
-                    <span data-cy="close-overlay">text </span>
+                    <span data-cy="close-overlay"> </span>
         </div>
     )
 }
