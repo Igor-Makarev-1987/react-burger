@@ -8,7 +8,7 @@ type ICurrentIrder = {
   currentOrder: TFeedOrder[]
 }
 
-const initialState: ICurrentIrder  = {
+export const initialState: ICurrentIrder  = {
     isLoadingCurrentOrder: false,
     errorCurrentOrder: '',
     currentOrder: []
@@ -25,6 +25,7 @@ const orders = createSlice({
         builder
         .addCase(getOrders.fulfilled, (state, action) => {
           state.isLoadingCurrentOrder = false;
+          // console.log(action.payload)
           state.currentOrder = action.payload.orders.orders;
         })
         .addCase(getOrders.pending, (state) => {

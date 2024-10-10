@@ -31,6 +31,7 @@ return (
                           text={name}
                           price={price}
                           thumbnail={image}
+                          extraClass="constructor-ingredient-data-cy"
                       /> 
                             : 
                           null

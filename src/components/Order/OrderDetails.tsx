@@ -23,7 +23,7 @@ const CurrentOrder = ({onClose}: TOrderDetail): React.JSX.Element => {
                         <div className={orderStyle.iconPosition}> <CheckMarkIcon type="primary" /></div>
                     </span>
                 </div>
-                <div className={`${orderStyle.mt4} ${modalStyle.row} ${orderStyle.infoOrder}`}> Ваш заказ начали готовить</div>
+                <div className={`${orderStyle.mt4} ${modalStyle.row} ${orderStyle.infoOrder}`} data-cy="order-load">Ваш заказ начали готовить</div>
                 <div className={`${modalStyle.row} ${orderStyle.infoOrderGet}`}> Дождитесь готовности на орбитальной станции</div>
             </div> 
     )

@@ -9,7 +9,7 @@ type TIngridients = {
 }
 
 
-const initialState: TIngridients = {
+export const initialState: TIngridients = {
     ingridients: [],
     isLoading: false,
     error: "",
@@ -28,6 +28,7 @@ const ingridientSlice = createSlice({
             }
           
             state.error = "";
+            // console.log(action.payload)
             state.ingridients = action.payload?.data;
           })
           .addCase(loadAllIngredients.pending, (state) => {

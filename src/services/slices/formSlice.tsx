@@ -21,7 +21,7 @@ type TFormState = {
     error: string
   };
 
-const initialState: TFormState = {
+export const initialState: TFormState = {
     resetFormFailed: false,
     resetFormSuccess: false,
     updateFormFailed: false,
@@ -90,7 +90,7 @@ const formSlice = createSlice({
                 state.userInfoSuccess = true
             })
             .addCase(setUserData.pending, (state) => {
-                state.userInfoSuccess = false
+                state.userInfoSuccess = true
             })
             .addCase(setUserData.rejected, (state) => {
                 state.userInfoSuccess = false
@@ -110,7 +110,7 @@ const formSlice = createSlice({
                 state.updateFormFailed = false;
                 state.updateFormSuccess = true;
                 state.isForgotPassword = true;
-                console.log(state.isForgotPassword)
+                // console.log(state.isForgotPassword)
             })
             .addCase(forgotPassword.pending, (state) => {
                 state.updateFormFailed = false;

@@ -28,12 +28,12 @@ const IngredientDetails = (): React.JSX.Element | null => {
 
         return (
             <>
-                <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`}>
+                <div className={`${modalStyle.mt4} ${modalStyle.title} ${modalStyle.row}`} data-cy="title">
                                             Детали ингридиента 
                     </div>
                 <div className="body">
                     <img className={modalStyle.picture} src={image_mobile} alt={name}/>
-                    <div className={modalStyle.nameProduct}>{name}</div>
+                    <div className={modalStyle.nameProduct} data-cy="ingredient title">{name}</div>
                     <div className={modalStyle.rowPherments}>
                         <span>
                             <div className={modalStyle.fontPermentsName}>Каллорий,ккал</div>

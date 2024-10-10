@@ -9,14 +9,14 @@ type TOrder = {
   error: string
 }
 
-const initialState: TOrder = {
+export const initialState: TOrder = {
     ingridients: [],
     orderId: [],
     isLoading: false,
     error: ""
 }
 
-const checkout = createSlice({
+export const checkout = createSlice({
     name: 'checkout',
     initialState,
     reducers: {
@@ -26,6 +26,7 @@ const checkout = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(postOrder.fulfilled, (state, action) => {
+          // console.log(action.payload)
           state.isLoading = false;
           state.orderId = action.payload?.orderId.order.number;
         })

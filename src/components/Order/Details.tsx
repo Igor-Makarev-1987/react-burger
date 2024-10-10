@@ -92,7 +92,7 @@ const Order = () => {
                             <CurrencyIcon type="primary" />
                         </span>
                     </span>
-                    <span className={orderStyle.button}>
+                    <span className={orderStyle.button} data-cy="make-an-order-info">
                         <Button htmlType="button" disabled={disabledButton} type="primary" size="large" onClick={openModal}>
                             Оформить заказ
                         </Button>

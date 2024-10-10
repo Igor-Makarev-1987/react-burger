@@ -79,7 +79,7 @@ function App(): React.JSX.Element {
               {/* модальное окно выбранного заказа */}
                 <Route path="/profile/orders/:id" element={
                   successUser && 
-                  (<Modal onClose={closeModal}>                
+                  (<Modal onClose={closeModal} >                
                       <OnlyAuth component={<BurgerCardExpanded order={ ordersUser } />}/>
                   </Modal>)
                 }></Route>

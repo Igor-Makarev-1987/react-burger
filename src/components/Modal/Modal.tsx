@@ -37,15 +37,17 @@ const Modal = ({children, onClose}: TPropsModal): React.JSX.Element | null => {
   
     return ReactDOM.createPortal(
         <>
-            <div className={modalStyle.container}>
-                <span className={modalStyle.closeButton} onClick={onClose}><CloseIcon type="primary" /></span>
+            <div className={modalStyle.container} data-cy="close-overlay">
+                <span  className={modalStyle.closeButton} data-cy="close" onClick={onClose}>
+                    <CloseIcon type="primary" />
+                </span>
                 <div className="modal-wrapper">
                     <div className="modal">
                         <div>{children}</div>
                     </div>
                 </div>
             </div>
-            <ModalOverlay onClose={onClose}></ModalOverlay>
+            <ModalOverlay  onClose={onClose}></ModalOverlay>
         </>,
         modalRoot
     );

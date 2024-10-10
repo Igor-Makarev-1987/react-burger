@@ -10,7 +10,7 @@ type listOrders = {
     connectionError: string | null
 }
 
-const initialState: listOrders = {
+export const initialState: listOrders = {
     status: WebsocketStatus.OFFLINE,
     success: false,
     orders: [],
